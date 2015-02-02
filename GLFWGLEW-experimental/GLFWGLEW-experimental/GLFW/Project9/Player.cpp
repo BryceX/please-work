@@ -10,22 +10,22 @@ Player::Player()
 	playerShip = new Vertex[3];
 	playerShip[0].fPositions[0] = myGlobals.screenSize / 2;
 	//y position of the top corner
-	playerShip[0].fPositions[1] = myGlobals.screenSize / 2 + 10.0f;
+	playerShip[0].fPositions[1] = myGlobals.screenSize / 2 + 30.0f;
 	//x position of the left corner 
-	playerShip[1].fPositions[0] = myGlobals.screenSize / 2 - 10.0f;
+	playerShip[1].fPositions[0] = myGlobals.screenSize / 2 - 30.0f;
 	//y position of the left corner
-	playerShip[1].fPositions[1] = myGlobals.screenSize / 2 - 10.0f;
+	playerShip[1].fPositions[1] = myGlobals.screenSize / 2 - 30.0f;
 	//x position of the right corner
-	playerShip[2].fPositions[0] = myGlobals.screenSize / 2 + 10.0f;
+	playerShip[2].fPositions[0] = myGlobals.screenSize / 2 + 30.0f;
 	//y pos right corner
-	playerShip[2].fPositions[1] = myGlobals.screenSize / 2 - 10.0f;
+	playerShip[2].fPositions[1] = myGlobals.screenSize / 2 - 30.0f;
 	for (int i = 0; i < 3; i++)
 	{
 		playerShip[i].fPositions[2] = 0.0f;
 		playerShip[i].fPositions[3] = 1.0f;
 		playerShip[i].fColours[0] = 1.0f;
-		playerShip[i].fColours[1] = 0.0f;
-		playerShip[i].fColours[2] = 1.0f;
+		playerShip[i].fColours[1] = 1.0f;
+		playerShip[i].fColours[2] = 0.0f;
 		playerShip[i].fColours[3] = 1.0f;
 	}
 	//set up the UVs
@@ -44,7 +44,7 @@ Player::Player()
 	uiProgramTextured = myGlobals.CreateProgram("VertexShader.glsl", "TexturedFragmentShader.glsl");
 
 	// load the texture
-	int width = 50, height = 50, bpp = 4; 
+	int width = 50, height = 40, bpp = 4; 
 	uiTextureId = myGlobals.loadTexture("zeroprofile.jpg", width, height, bpp);
 }
 void Player::Draw()
@@ -53,7 +53,6 @@ void Player::Draw()
 
 	// specify the shader program to be used for rendering
 	glUseProgram(uiProgramTextured);
-
 	// get the location of the MVP variable
 	GLuint MatrixIDFlat = glGetUniformLocation(uiProgramTextured, "MVP");
 	
@@ -75,11 +74,7 @@ void Player::Draw()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(float)* 8));
 	//draw to the screen
 
-	//glPointSize(100.f);
-
 	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_BYTE, NULL);
-	//glDrawElements(GL_POINTS, 3, GL_UNSIGNED_BYTE, NULL);
-	//glDrawArrays(GL_POINTS, 3, GL_UNSIGNED_BYTE);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);				// clear the currently bound buffer for VBO
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);		// clear the currently bound buffer for IBO
 	//swap front and back buffers

@@ -7,45 +7,45 @@ Text::Text()
 	Globals& myGlobals = Globals::instance();
 
 	//put vertex info first
-	playerShip = new Vertex[3];
-	playerShip[0].fPositions[0] = myGlobals.screenSize / 3;
+	text = new Vertex[3];
+	text[0].fPositions[0] = myGlobals.screenSize / 2 + 10.0f;
 	//y position of the top corner
-	playerShip[0].fPositions[1] = myGlobals.screenSize / 3 + 10.0f;
+	text[0].fPositions[1] = myGlobals.screenSize / 2 + 10.0f;
 	//x position of the left corner 
-	playerShip[1].fPositions[0] = myGlobals.screenSize / 3 - 10.0f;
+	text[1].fPositions[0] = myGlobals.screenSize / 2 - 10.0f;
 	//y position of the left corner
-	playerShip[1].fPositions[1] = myGlobals.screenSize / 3 - 10.0f;
+	text[1].fPositions[1] = myGlobals.screenSize / 2 - 10.0f;
 	//x position of the right corner
-	playerShip[2].fPositions[0] = myGlobals.screenSize / 3 + 10.0f;
+	text[2].fPositions[0] = myGlobals.screenSize / 2 + 10.0f;
 	//y pos right corner
-	playerShip[2].fPositions[1] = myGlobals.screenSize / 3 - 10.0f;
+	text[2].fPositions[1] = myGlobals.screenSize / 2 - 10.0f;
 	for (int i = 0; i < 3; i++)
 	{
-		playerShip[i].fPositions[2] = 0.0f;
-		playerShip[i].fPositions[3] = 1.0f;
-		playerShip[i].fColours[0] = 1.0f;
-		playerShip[i].fColours[1] = 0.0f;
-		playerShip[i].fColours[2] = 1.0f;
-		playerShip[i].fColours[3] = 1.0f;
+		text[i].fPositions[2] = 0.0f;
+		text[i].fPositions[3] = 1.0f;
+		text[i].fColours[0] = 1.0f;
+		text[i].fColours[1] = 0.0f;
+		text[i].fColours[2] = 0.0f;
+		text[i].fColours[3] = 1.0f;
 	}
 	//set up the UVs
-	playerShip[0].fUVs[0] = 0.5f; //top of the triangle
-	playerShip[0].fUVs[1] = 1.0f;
-	playerShip[1].fUVs[0] = 0.0f; //bottom left
-	playerShip[1].fUVs[1] = 0.0f;
-	playerShip[2].fUVs[0] = 1.0f; //bottom right
-	playerShip[2].fUVs[1] = 0.0f;
+	text[0].fUVs[0] = 0.5f; //top of the triangle
+	text[0].fUVs[1] = 1.0f;
+	text[1].fUVs[0] = 0.0f; //bottom left
+	text[1].fUVs[1] = 0.0f;
+	text[2].fUVs[0] = 1.0f; //bottom right
+	text[2].fUVs[1] = 0.0f;
 
 	//making buffers
-	glGenBuffers(1, &uiVBOplayerShip);	// VBO
-	glGenBuffers(1, &uiIBOplayerShip);	// IBO
+	glGenBuffers(1, &uiVBOText);	// VBO
+	glGenBuffers(1, &uiIBOText);	// IBO
 
 	// make the shaders
 	uiProgramTextured = myGlobals.CreateProgram("VertexShader.glsl", "TexturedFragmentShader.glsl");
 
 	// load the texture
 	int width = 50, height = 50, bpp = 4;
-	uiTextureId = myGlobals.loadTexture("Text.jpg", width, height, bpp);
+	uiTextureId = myGlobals.loadTexture("Text.png", width, height, bpp);
 }
 void Text::Draw()
 {
@@ -58,9 +58,9 @@ void Text::Draw()
 	GLuint MatrixIDFlat = glGetUniformLocation(uiProgramTextured, "MVP");
 
 	glBindTexture(GL_TEXTURE_2D, uiTextureId);				// sets up the texture that we gon use
-	glBindBuffer(GL_ARRAY_BUFFER, uiVBOplayerShip);			// sets up the VBO we gon use
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, uiIBOplayerShip);	// sets up the IBO we gon use
-
+	glBindBuffer(GL_ARRAY_BUFFER, uiVBOText);			// sets up the VBO we gon use
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, uiIBOText);	// sets up the IBO we gon use
+	
 	// send the ortho to the shader
 	glUniformMatrix4fv(MatrixIDFlat, 1, GL_FALSE, myGlobals.orthographicProjection);
 	//enable the vertex array state, since we're sending in an array of vertices
@@ -75,11 +75,7 @@ void Text::Draw()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(float) * 8));
 	//draw to the screen
 
-	//glPointSize(100.f);
-
 	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_BYTE, NULL);
-	//glDrawElements(GL_POINTS, 3, GL_UNSIGNED_BYTE, NULL);
-	//glDrawArrays(GL_POINTS, 3, GL_UNSIGNED_BYTE);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);				// clear the currently bound buffer for VBO
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);		// clear the currently bound buffer for IBO
 	//swap front and back buffers
@@ -89,10 +85,10 @@ void Text::Draw()
 
 
 	// send data to the IBO
-	if (uiIBOplayerShip != 0)
+	if (uiIBOText != 0)
 	{
 		//bind IBO
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, uiIBOplayerShip);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, uiIBOText);
 		//allocate space for index info on the graphics card
 		glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3 * sizeof(char), NULL, GL_STATIC_DRAW);
 		//get pointer to newly allocated space on the graphics card
@@ -109,16 +105,16 @@ void Text::Draw()
 	}
 
 	// send data to the VBO
-	if (uiVBOplayerShip != 0)
+	if (uiVBOText != 0)
 	{
 		//bind VBO
-		glBindBuffer(GL_ARRAY_BUFFER, uiVBOplayerShip);
+		glBindBuffer(GL_ARRAY_BUFFER, uiVBOText);
 		//allocate space for vertices on the graphics card
 		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * 3, NULL, GL_STATIC_DRAW);
 		//get pointer to allocated space on the graphics card
 		GLvoid* vBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 		//copy data to graphics card
-		memcpy(vBuffer, playerShip, sizeof(Vertex) * 3);
+		memcpy(vBuffer, text, sizeof(Vertex)* 3);
 		//unmap and unbind buffer
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -130,5 +126,5 @@ void Text::Draw()
 
 Text::~Text()
 {
-	delete playerShip;
+	delete text;
 }

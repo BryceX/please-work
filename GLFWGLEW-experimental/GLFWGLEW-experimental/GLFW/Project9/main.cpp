@@ -44,15 +44,10 @@ int main()
 		glfwTerminate();
 		return -1;
 	}
-	
-	//GLuint uiProgramFlat = myGlobals.CreateProgram("VertexShader.glsl", "FlatFragmentShader.glsl");
-	//GLuint uiProgramTextured = myGlobals.CreateProgram("VertexShader.glsl", "TexturedFragmentShader.glsl");	
 	//Initialise GLFW
 	Player myShip;
-	//Environment backgroundObjects;
 	Stars myStars[50];
 	Text myText;
-	Player myOtherShip;
 	Asteroids myAsteroids[10];
 
 
@@ -80,7 +75,6 @@ int main()
 		myStars[i].Draw();
 		}
 		
-
 		
 		glfwSwapBuffers(myGlobals.window);
 

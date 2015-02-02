@@ -7,11 +7,10 @@
 class Text
 {
 public:
-	void Move();
 	void Draw();
-	Vertex* playerShip;
-	GLuint uiVBOplayerShip;
-	GLuint uiIBOplayerShip;
+	Vertex* text;
+	GLuint uiVBOText;
+	GLuint uiIBOText;
 	GLuint  uiProgramTextured;
 	GLuint  uiTextureId;
 	Text();
