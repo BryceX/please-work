@@ -75,12 +75,14 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Stars.cpp" />
+    <ClCompile Include="Text.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Asteroids.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Stars.h" />
+    <ClInclude Include="Text.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FlatFragmentShader.glsl" />

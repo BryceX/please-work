@@ -11,6 +11,7 @@
 #include "Player.h"
 #include "Asteroids.h"
 #include "Stars.h"
+#include "Text.h"
 int xPos = 450;
 int astConstant = 40;
 
@@ -50,7 +51,7 @@ int main()
 	Player myShip;
 	//Environment backgroundObjects;
 	Stars myStars[50];
-
+	Text myText;
 	Player myOtherShip;
 	Asteroids myAsteroids[10];
 
@@ -68,6 +69,7 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 		myShip.Move();
 		myShip.Draw();
+		myText.Draw();
 		for (int i = 0; i < 10; i++)
 		{
 			myAsteroids[i].Draw();
