@@ -22,8 +22,12 @@ Text::Text()
 
 	text[3].fPositions[0] = text[0].fPositions[0];
 	text[3].fPositions[1] = text[0].fPositions[1];
+
+
 	text[4].fPositions[0] = text[1].fPositions[0];
 	text[4].fPositions[1] = text[1].fPositions[1];
+	
+	
 	text[5].fPositions[0] = text[1].fPositions[0];
 	text[5].fPositions[1] = text[0].fPositions[1];
 	for (int i = 0; i < 6; i++)
@@ -45,14 +49,14 @@ Text::Text()
 	text[2].fUVs[0] = 0.1f; //bottom right
 	text[2].fUVs[1] = 0.95f;
 
-	text[3].fUVs[0] = 0.1f; //
+	text[3].fUVs[0] = 0.1f; //upper right
 	text[3].fUVs[1] = 0.995f;
 
-	text[4].fUVs[0] = 0.0625f; //
+	text[4].fUVs[0] = 0.0625f; // lower left corner
 	text[4].fUVs[1] = 0.95f;
 
-	text[5].fUVs[0] = 0.1f; //
-	text[5].fUVs[1] = 0.95f;
+	text[5].fUVs[0] = 0.0625f; // upper left corner
+	text[5].fUVs[1] = 0.995f;
 	//making buffers
 	glGenBuffers(1, &uiVBOText);	// VBO
 	glGenBuffers(1, &uiIBOText);	// IBO
@@ -92,7 +96,7 @@ void Text::Draw()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(float) * 8));
 	//draw to the screen
 
-	glDrawElements(GL_TRIANGLE_FAN, 6, GL_UNSIGNED_BYTE, NULL);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_BYTE, NULL);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);				// clear the currently bound buffer for VBO
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);		// clear the currently bound buffer for IBO
 	//swap front and back buffers
