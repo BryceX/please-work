@@ -14,6 +14,8 @@ public:
 	GLuint  uiProgramTextured;
 	GLuint  uiTextureId;
 	void SetSize(float a_ScreenWidth, float a_ScreenHeight);
+	float screenWidth;
+	float screenHeight;
 	Text();
 	~Text();
 };

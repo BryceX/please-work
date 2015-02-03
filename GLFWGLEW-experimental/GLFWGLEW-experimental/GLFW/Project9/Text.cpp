@@ -7,19 +7,26 @@ Text::Text()
 	Globals& myGlobals = Globals::instance();
 
 	//put vertex info first
-	text = new Vertex[3];
-	text[0].fPositions[0] = myGlobals.screenSize / 2 + 50.0f;
+	text = new Vertex[6];
+	text[0].fPositions[0] = myGlobals.screenSize / 2 + 10.0f;
 	//y position of the top corner
-	text[0].fPositions[1] = myGlobals.screenSize / 2 + 40.0f;
+	text[0].fPositions[1] = myGlobals.screenSize / 2 + 10.0f;
 	//x position of the left corner 
-	text[1].fPositions[0] = myGlobals.screenSize / 2 - 50.0f;
+	text[1].fPositions[0] = myGlobals.screenSize / 2 - 10.0f;
 	//y position of the left corner
-	text[1].fPositions[1] = myGlobals.screenSize / 2 - 40.0f;
+	text[1].fPositions[1] = myGlobals.screenSize / 2 - 10.0f;
 	//x position of the right corner
-	text[2].fPositions[0] = myGlobals.screenSize / 2 + 50.0f;
+	text[2].fPositions[0] = myGlobals.screenSize / 2 + 10.0f;
 	//y pos right corner
-	text[2].fPositions[1] = myGlobals.screenSize / 2 - 40.0f;
-	for (int i = 0; i < 3; i++)
+	text[2].fPositions[1] = myGlobals.screenSize / 2 - 10.0f;
+
+	text[3].fPositions[0] = text[0].fPositions[0];
+	text[3].fPositions[1] = text[0].fPositions[1];
+	text[4].fPositions[0] = text[1].fPositions[0];
+	text[4].fPositions[1] = text[1].fPositions[1];
+	text[5].fPositions[0] = text[1].fPositions[0];
+	text[5].fPositions[1] = text[0].fPositions[1];
+	for (int i = 0; i < 6; i++)
 	{
 		text[i].fPositions[2] = 0.0f;
 		text[i].fPositions[3] = 1.0f;
@@ -29,15 +36,23 @@ Text::Text()
 		text[i].fColours[3] = 1.0f;
 	}
 	//set up the UVs
-	text[0].fUVs[0] = 0.125f; //top of the triangle
-	text[0].fUVs[1] = 1.0f;
+	text[0].fUVs[0] = 0.1f; //top of the triangle
+	text[0].fUVs[1] = 0.995f;
 
-	text[1].fUVs[0] = 0.0f; //bottom left
+	text[1].fUVs[0] = 0.0625f; //bottom left
 	text[1].fUVs[1] = 0.95f;
 
-	text[2].fUVs[0] = 0.125f; //bottom right
+	text[2].fUVs[0] = 0.1f; //bottom right
 	text[2].fUVs[1] = 0.95f;
 
+	text[3].fUVs[0] = 0.1f; //
+	text[3].fUVs[1] = 0.995f;
+
+	text[4].fUVs[0] = 0.0625f; //
+	text[4].fUVs[1] = 0.95f;
+
+	text[5].fUVs[0] = 0.1f; //
+	text[5].fUVs[1] = 0.95f;
 	//making buffers
 	glGenBuffers(1, &uiVBOText);	// VBO
 	glGenBuffers(1, &uiIBOText);	// IBO
@@ -58,11 +73,11 @@ void Text::Draw()
 
 	// get the location of the MVP variable
 	GLuint MatrixIDFlat = glGetUniformLocation(uiProgramTextured, "MVP");
-
 	glBindTexture(GL_TEXTURE_2D, uiTextureId);				// sets up the texture that we gon use
 	glBindBuffer(GL_ARRAY_BUFFER, uiVBOText);			// sets up the VBO we gon use
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, uiIBOText);	// sets up the IBO we gon use
-	
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 	// send the ortho to the shader
 	glUniformMatrix4fv(MatrixIDFlat, 1, GL_FALSE, myGlobals.orthographicProjection);
 	//enable the vertex array state, since we're sending in an array of vertices
@@ -77,7 +92,7 @@ void Text::Draw()
 	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)(sizeof(float) * 8));
 	//draw to the screen
 
-	glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_BYTE, NULL);
+	glDrawElements(GL_TRIANGLE_FAN, 6, GL_UNSIGNED_BYTE, NULL);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);				// clear the currently bound buffer for VBO
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);		// clear the currently bound buffer for IBO
 	//swap front and back buffers
@@ -92,12 +107,12 @@ void Text::Draw()
 		//bind IBO
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, uiIBOText);
 		//allocate space for index info on the graphics card
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3 * sizeof(char), NULL, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, 6 * sizeof(char), NULL, GL_STATIC_DRAW);
 		//get pointer to newly allocated space on the graphics card
 		GLvoid* iBuffer = glMapBuffer(GL_ELEMENT_ARRAY_BUFFER, GL_WRITE_ONLY);
 		//specify the order we'd like to draw our vertices.
 		//In this case they are in sequential order
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < 6; i++)
 		{
 			((char*)iBuffer)[i] = i;
 		}
@@ -112,11 +127,11 @@ void Text::Draw()
 		//bind VBO
 		glBindBuffer(GL_ARRAY_BUFFER, uiVBOText);
 		//allocate space for vertices on the graphics card
-		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * 3, NULL, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * 6, NULL, GL_STATIC_DRAW);
 		//get pointer to allocated space on the graphics card
 		GLvoid* vBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 		//copy data to graphics card
-		memcpy(vBuffer, text, sizeof(Vertex)* 3);
+		memcpy(vBuffer, text, sizeof(Vertex)* 6);
 		//unmap and unbind buffer
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -124,7 +139,8 @@ void Text::Draw()
 }
 void Text::SetSize(float a_ScreenWidth, float a_ScreenHeight)
 {
-
+	this-> screenWidth = a_ScreenWidth;
+	this->screenHeight = a_ScreenHeight;
 }
 
 
