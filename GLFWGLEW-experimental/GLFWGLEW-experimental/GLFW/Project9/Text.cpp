@@ -8,33 +8,35 @@ Text::Text()
 
 	//put vertex info first
 	text = new Vertex[3];
-	text[0].fPositions[0] = myGlobals.screenSize / 2 + 10.0f;
+	text[0].fPositions[0] = myGlobals.screenSize / 2 + 50.0f;
 	//y position of the top corner
-	text[0].fPositions[1] = myGlobals.screenSize / 2 + 10.0f;
+	text[0].fPositions[1] = myGlobals.screenSize / 2 + 40.0f;
 	//x position of the left corner 
-	text[1].fPositions[0] = myGlobals.screenSize / 2 - 10.0f;
+	text[1].fPositions[0] = myGlobals.screenSize / 2 - 50.0f;
 	//y position of the left corner
-	text[1].fPositions[1] = myGlobals.screenSize / 2 - 10.0f;
+	text[1].fPositions[1] = myGlobals.screenSize / 2 - 40.0f;
 	//x position of the right corner
-	text[2].fPositions[0] = myGlobals.screenSize / 2 + 10.0f;
+	text[2].fPositions[0] = myGlobals.screenSize / 2 + 50.0f;
 	//y pos right corner
-	text[2].fPositions[1] = myGlobals.screenSize / 2 - 10.0f;
+	text[2].fPositions[1] = myGlobals.screenSize / 2 - 40.0f;
 	for (int i = 0; i < 3; i++)
 	{
 		text[i].fPositions[2] = 0.0f;
 		text[i].fPositions[3] = 1.0f;
 		text[i].fColours[0] = 1.0f;
-		text[i].fColours[1] = 0.0f;
-		text[i].fColours[2] = 0.0f;
+		text[i].fColours[1] = 1.0f;
+		text[i].fColours[2] = 1.0f;
 		text[i].fColours[3] = 1.0f;
 	}
 	//set up the UVs
-	text[0].fUVs[0] = 0.5f; //top of the triangle
+	text[0].fUVs[0] = 0.125f; //top of the triangle
 	text[0].fUVs[1] = 1.0f;
+
 	text[1].fUVs[0] = 0.0f; //bottom left
-	text[1].fUVs[1] = 0.0f;
-	text[2].fUVs[0] = 1.0f; //bottom right
-	text[2].fUVs[1] = 0.0f;
+	text[1].fUVs[1] = 0.95f;
+
+	text[2].fUVs[0] = 0.125f; //bottom right
+	text[2].fUVs[1] = 0.95f;
 
 	//making buffers
 	glGenBuffers(1, &uiVBOText);	// VBO
@@ -44,7 +46,7 @@ Text::Text()
 	uiProgramTextured = myGlobals.CreateProgram("VertexShader.glsl", "TexturedFragmentShader.glsl");
 
 	// load the texture
-	int width = 50, height = 50, bpp = 4;
+	int width = 5, height = 5, bpp = 4;
 	uiTextureId = myGlobals.loadTexture("Text.png", width, height, bpp);
 }
 void Text::Draw()
@@ -119,6 +121,10 @@ void Text::Draw()
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
+}
+void Text::SetSize(float a_ScreenWidth, float a_ScreenHeight)
+{
+
 }
 
 
