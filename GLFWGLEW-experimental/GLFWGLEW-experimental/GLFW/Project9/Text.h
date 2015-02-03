@@ -13,9 +13,11 @@ public:
 	GLuint uiIBOText;
 	GLuint  uiProgramTextured;
 	GLuint  uiTextureId;
-	void SetSize(float a_ScreenWidth, float a_ScreenHeight);
-	float screenWidth;
-	float screenHeight;
+	void SetSize(float a_ScreenSize);
+	float screenSize;
+	float offSet;
+	float uvOffSet;
+	float trueOffSet;
 	Text();
 	~Text();
 };

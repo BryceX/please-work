@@ -5,20 +5,22 @@
 Text::Text()
 {
 	Globals& myGlobals = Globals::instance();
-
+	offSet = 10.0f;
+	uvOffSet = offSet / 1000;
+	trueOffSet = 1 / screenSize;
 	//put vertex info first
 	text = new Vertex[6];
-	text[0].fPositions[0] = myGlobals.screenSize / 2 + 10.0f;
+	text[0].fPositions[0] = myGlobals.screenSize / 2 + offSet;
 	//y position of the top corner
-	text[0].fPositions[1] = myGlobals.screenSize / 2 + 10.0f;
+	text[0].fPositions[1] = myGlobals.screenSize / 2 + offSet;
 	//x position of the left corner 
-	text[1].fPositions[0] = myGlobals.screenSize / 2 - 10.0f;
+	text[1].fPositions[0] = myGlobals.screenSize / 2 - offSet;
 	//y position of the left corner
-	text[1].fPositions[1] = myGlobals.screenSize / 2 - 10.0f;
+	text[1].fPositions[1] = myGlobals.screenSize / 2 - offSet;
 	//x position of the right corner
-	text[2].fPositions[0] = myGlobals.screenSize / 2 + 10.0f;
+	text[2].fPositions[0] = myGlobals.screenSize / 2 + offSet;
 	//y pos right corner
-	text[2].fPositions[1] = myGlobals.screenSize / 2 - 10.0f;
+	text[2].fPositions[1] = myGlobals.screenSize / 2 - offSet;
 
 	text[3].fPositions[0] = text[0].fPositions[0];
 	text[3].fPositions[1] = text[0].fPositions[1];
@@ -40,23 +42,23 @@ Text::Text()
 		text[i].fColours[3] = 1.0f;
 	}
 	//set up the UVs
-	text[0].fUVs[0] = 0.1f; //top of the triangle
-	text[0].fUVs[1] = 0.995f;
+	text[0].fUVs[0] = 0.12f - uvOffSet; //topright of the triangle
+	text[0].fUVs[1] = 1.0f;
 
-	text[1].fUVs[0] = 0.0625f; //bottom left
-	text[1].fUVs[1] = 0.95f;
+	text[1].fUVs[0] = 0.06f - uvOffSet; //bottom left
+	text[1].fUVs[1] = 0.9475f;
 
-	text[2].fUVs[0] = 0.1f; //bottom right
-	text[2].fUVs[1] = 0.95f;
+	text[2].fUVs[0] = 0.12f - uvOffSet; //bottom right
+	text[2].fUVs[1] = 0.9475f;
 
-	text[3].fUVs[0] = 0.1f; //upper right
-	text[3].fUVs[1] = 0.995f;
+	text[3].fUVs[0] = 0.12f - uvOffSet; //upper right
+	text[3].fUVs[1] = 1.0f;
 
-	text[4].fUVs[0] = 0.0625f; // lower left corner
-	text[4].fUVs[1] = 0.95f;
+	text[4].fUVs[0] = 0.06f - uvOffSet; // lower left corner
+	text[4].fUVs[1] = 0.9475f;
 
-	text[5].fUVs[0] = 0.0625f; // upper left corner
-	text[5].fUVs[1] = 0.995f;
+	text[5].fUVs[0] = 0.06f - uvOffSet; // upper left corner
+	text[5].fUVs[1] = 1.0f;
 	//making buffers
 	glGenBuffers(1, &uiVBOText);	// VBO
 	glGenBuffers(1, &uiIBOText);	// IBO
@@ -141,10 +143,9 @@ void Text::Draw()
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 	}
 }
-void Text::SetSize(float a_ScreenWidth, float a_ScreenHeight)
+void Text::SetSize(float a_ScreenSize)
 {
-	this-> screenWidth = a_ScreenWidth;
-	this->screenHeight = a_ScreenHeight;
+	this-> screenSize = a_ScreenSize;
 }
 
 
