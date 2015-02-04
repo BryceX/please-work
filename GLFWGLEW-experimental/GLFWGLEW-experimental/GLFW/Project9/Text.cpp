@@ -127,13 +127,13 @@ Text::Text()
 	// load the texture
 	int width = 5, height = 5, bpp = 4;
 	uiTextureId = myGlobals.loadTexture("Text.png", width, height, bpp);
+
+
 }
 void Text::Draw()
 {
 	Globals& myGlobals = Globals::instance();
 
-
-	
 
 
 	// specify the shader program to be used for rendering

@@ -47,7 +47,7 @@ int main()
 	//Initialise GLFW
 	Player myShip;
 	Stars myStars[50];
-	Text myText[10];
+	Text myText;
 	Asteroids myAsteroids[10];
 	
 
@@ -64,7 +64,7 @@ int main()
 		glClear(GL_COLOR_BUFFER_BIT);
 		myShip.Move();
 		myShip.Draw();
-		myText[i].Draw();
+		myText.Draw();
 		for (int i = 0; i < 10; i++)
 		/*{
 			myText[i].Draw();

@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include <SOIL.h>
 #include "Globals.h"
+#include <string>
 class Text
 {
 public:
