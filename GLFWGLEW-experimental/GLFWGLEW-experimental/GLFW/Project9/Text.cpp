@@ -4,13 +4,19 @@
 
 Text::Text()
 {
+	//want to be able to input letters somewhere, have that convert to the corresponding
+	//column and row, and all in a for loop somewhere or another
+	//
+	//
+	//
+	//
 	Globals& myGlobals = Globals::instance();
 	screenSize = 1;
 	offSet = 10.0f;
 	uvOffSet = offSet / 1000;
 	trueOffSet = 1 / screenSize;
 	letter = 0;
-	column = 18;
+	column = 59;
 	row = 0;
 	//put vertex info first
 	text = new Vertex[6];
@@ -98,10 +104,11 @@ Text::Text()
 			}
 		}
 	}
-	if (column > 15)
+	
+	while (column > 15)
 	{
 		row += 1;
-		column = 0;
+		column -= 15;
 	}
 	for (int i = 0; i < 6; i++)
 	{
