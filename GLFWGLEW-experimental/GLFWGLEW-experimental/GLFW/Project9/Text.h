@@ -18,6 +18,10 @@ public:
 	float offSet;
 	float uvOffSet;
 	float trueOffSet;
+	int letter;
+	int column;
+	int row;
+
 	Text();
 	~Text();
 };

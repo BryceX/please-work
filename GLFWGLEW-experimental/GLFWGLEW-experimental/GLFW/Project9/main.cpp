@@ -24,7 +24,7 @@ int main()
 	{
 		return -1;
 	}
-	myGlobals.window = glfwCreateWindow(1024, 1024, "Hello World", NULL, NULL);
+	myGlobals.window = glfwCreateWindow(600, 600, "Hello World", NULL, NULL);
 	myGlobals.orthographicProjection = myGlobals.getOrtho(0, 1024, 0, 720, 0, 100);
 	if (!myGlobals.window)
 	{
@@ -49,7 +49,7 @@ int main()
 	Stars myStars[50];
 	Text myText;
 	Asteroids myAsteroids[10];
-
+	
 
 	
 	//set up the mapping of the screen to pixel co-ordinates. Try changing these values to see what happens.

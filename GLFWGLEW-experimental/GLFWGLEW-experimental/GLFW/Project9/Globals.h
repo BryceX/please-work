@@ -11,7 +11,7 @@
 class Globals
 {
 public:
-	int screenSize = 1024;
+	int screenSize = 600;
 	GLFWwindow * window;
 	float *orthographicProjection;
 
