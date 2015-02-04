@@ -10,7 +10,7 @@ Text::Text()
 	uvOffSet = offSet / 1000;
 	trueOffSet = 1 / screenSize;
 	letter = 0;
-	column = 10;
+	column = 18;
 	row = 0;
 	//put vertex info first
 	text = new Vertex[6];
@@ -45,6 +45,7 @@ Text::Text()
 		text[i].fColours[3] = 1.0f;
 	}
 	//set up the UVs
+	/*
 	text[0].fUVs[0] = 0.128f - uvOffSet; //topright of the triangle
 	text[0].fUVs[1] = 1.0f;
 	
@@ -61,10 +62,10 @@ Text::Text()
 	text[4].fUVs[1] = 0.9475f;
 
 	text[5].fUVs[0] = 0.064f - uvOffSet; // upper left corner
-	text[5].fUVs[1] = 1.0f;
+	text[5].fUVs[1] = 1.0f;*/
 
 
-	/*
+	
 	text[0].fUVs[0] = 0.06f - uvOffSet; //topright of the triangle
 	text[0].fUVs[1] = 1.0f;
 
@@ -82,7 +83,7 @@ Text::Text()
 	text[4].fUVs[1] = 0.9475f;
 
 	text[5].fUVs[0] = 0.0f - uvOffSet; // upper left corner
-	text[5].fUVs[1] = 1.0f;*/
+	text[5].fUVs[1] = 1.0f;
 	for (int i = 0; i < 6; i++)
 	{
 		for (int j = 0; j < 2; j++)
@@ -105,7 +106,7 @@ Text::Text()
 	for (int i = 0; i < 6; i++)
 	{
 		text[i].fUVs[0] += 0.064f*column;
-		text[i].fUVs[1] += 0.064f*row;
+		text[i].fUVs[1] -= 0.064f*row;
 
 	}
 	
