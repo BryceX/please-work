@@ -41,7 +41,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(SolutionDir)\Include;$(SolutionDir)SOIL\src;$(SolutionDir)Lib;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\Include;$(SolutionDir)SOIL\src;$(SolutionDir)Lib;$(SolutionDir)tinyxml;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)\Lib;$(SolutionDir)\GLFW\Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">

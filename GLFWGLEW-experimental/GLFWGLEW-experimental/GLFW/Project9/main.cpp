@@ -12,6 +12,7 @@
 #include "Asteroids.h"
 #include "Stars.h"
 #include "Text.h"
+#include "tinyxml2.h"
 int xPos = 450;
 int astConstant = 40;
 
