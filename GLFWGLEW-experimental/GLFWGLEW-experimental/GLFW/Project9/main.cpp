@@ -13,7 +13,8 @@
 #include "Stars.h"
 #include "Text.h"
 #include "tinyxml2.h"
-int xPos = 450;
+#include "Animator.h"
+
 int astConstant = 40;
 
 int main()
@@ -50,31 +51,372 @@ int main()
 	Stars myStars[50];
 	Text myText;
 	Asteroids myAsteroids[10];
-	
+	Animator animatedSprite;
 
-	
+	enum Frames
+	{
+		Frame0,
+		Frame1,
+		Frame2,
+		Frame3,
+		Frame4,
+		Frame5,
+		Frame6,
+		Frame7,
+		Frame8,
+		Frame9,
+		Frame10,
+		Frame11
+	};
+	int currentFrame = Frame0;
+
 	//set up the mapping of the screen to pixel co-ordinates. Try changing these values to see what happens.
-	myGlobals.orthographicProjection = myGlobals.getOrtho(0, 1024, 0, 720, 0, 100);
 	//loop until the user closes the window
 
-	
+
 	while (!glfwWindowShouldClose(myGlobals.window))
 	{
+		animatedSprite.FrameHandler += glfwGetTime();
+
 		//draw code goes here
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		myShip.Move();
 		myShip.Draw();
 		myText.Draw();
-		for (int i = 0; i < 10; i++)
-		/*{
-			myText[i].Draw();
-			for (int j = 0; j < 6; j++)
+		animatedSprite.Draw();
+
+		switch (currentFrame)
+		{
+
+		case Frame0:
+
+			animatedSprite.text[0].fUVs[0] = 0.08f; //topright of the triangle
+			animatedSprite.text[0].fUVs[1] = 1.0f;
+
+			animatedSprite.text[2].fUVs[1] = 0.00f;
+
+			animatedSprite.text[3].fUVs[0] = 0.08f; //upper right
+			animatedSprite.text[3].fUVs[1] = 1.0f;
+
+
+			animatedSprite.text[1].fUVs[0] = 0.0f; //bottom left
+			animatedSprite.text[1].fUVs[1] = 0.0f;
+
+			animatedSprite.text[4].fUVs[0] = 0.0f; // bottom left corner
+			animatedSprite.text[4].fUVs[1] = 0.0f;
+
+			animatedSprite.text[5].fUVs[0] = 0.0f; // upper left corner
+			animatedSprite.text[5].fUVs[1] = 1.0f;
+			if (animatedSprite.FrameHandler > 10)
 			{
-				myText[j].fPositions[0]
+				currentFrame = Frame1;
+				animatedSprite.FrameHandler = 0;
 			}
-		}*/
-		
+			break;
+		case Frame1:
+
+			animatedSprite.text[0].fUVs[0] = 0.16f; //topright of the triangle
+			animatedSprite.text[0].fUVs[1] = 1.0f;
+
+			animatedSprite.text[2].fUVs[0] = 0.16f; //bottom right
+			animatedSprite.text[2].fUVs[1] = 0.00f;
+
+			animatedSprite.text[3].fUVs[0] = 0.16f; //upper right
+			animatedSprite.text[3].fUVs[1] = 1.0f;
+
+			animatedSprite.text[1].fUVs[0] = 0.08f; //bottom left
+			animatedSprite.text[1].fUVs[1] = 0.0f;
+
+			animatedSprite.text[4].fUVs[0] = 0.08f; // bottom left corner
+			animatedSprite.text[4].fUVs[1] = 0.0f;
+
+			animatedSprite.text[5].fUVs[0] = 0.08f; // upper left corner
+			animatedSprite.text[5].fUVs[1] = 1.0f;
+			if (animatedSprite.FrameHandler > 10)
+			{
+				currentFrame = Frame2;
+				animatedSprite.FrameHandler = 0;
+			}
+			break;
+
+		case Frame2:
+
+			animatedSprite.text[0].fUVs[0] = 0.24f; //topright of the triangle
+			animatedSprite.text[0].fUVs[1] = 1.0f;
+
+			animatedSprite.text[2].fUVs[0] = 0.24f; //bottom right
+			animatedSprite.text[2].fUVs[1] = 0.00f;
+
+			animatedSprite.text[3].fUVs[0] = 0.24f; //upper right
+			animatedSprite.text[3].fUVs[1] = 1.0f;
+
+			animatedSprite.text[1].fUVs[0] = 0.16f; //bottom left
+			animatedSprite.text[1].fUVs[1] = 0.0f;
+
+			animatedSprite.text[4].fUVs[0] = 0.16f; // bottom left corner
+			animatedSprite.text[4].fUVs[1] = 0.0f;
+
+			animatedSprite.text[5].fUVs[0] = 0.16f; // upper left corner
+			animatedSprite.text[5].fUVs[1] = 1.0f;
+
+			if (animatedSprite.FrameHandler > 10)
+			{
+				currentFrame = Frame3;
+				animatedSprite.FrameHandler = 0;
+
+			}
+			break;
+
+		case Frame3:
+
+			animatedSprite.text[0].fUVs[0] = 0.33f; //topright of the triangle
+			animatedSprite.text[0].fUVs[1] = 1.0f;
+
+			animatedSprite.text[2].fUVs[0] = 0.33f; //bottom right
+			animatedSprite.text[2].fUVs[1] = 0.00f;
+
+			animatedSprite.text[3].fUVs[0] = 0.33f; //upper right
+			animatedSprite.text[3].fUVs[1] = 1.0f;
+
+			animatedSprite.text[1].fUVs[0] = 0.25f; //bottom left
+			animatedSprite.text[1].fUVs[1] = 0.0f;
+
+			animatedSprite.text[4].fUVs[0] = 0.25f; // bottom left corner
+			animatedSprite.text[4].fUVs[1] = 0.0f;
+
+			animatedSprite.text[5].fUVs[0] = 0.25f; // upper left corner
+			animatedSprite.text[5].fUVs[1] = 1.0f;
+			if (animatedSprite.FrameHandler > 10)
+			{
+				currentFrame = Frame4;
+				animatedSprite.FrameHandler = 0;
+
+			}
+			break;
+
+		case Frame4:
+			animatedSprite.text[0].fUVs[0] = 0.42f; //topright of the triangle
+			animatedSprite.text[0].fUVs[1] = 1.0f;
+
+			animatedSprite.text[2].fUVs[0] = 0.42f; //bottom right
+			animatedSprite.text[2].fUVs[1] = 0.00f;
+
+			animatedSprite.text[3].fUVs[0] = 0.42f; //upper right
+			animatedSprite.text[3].fUVs[1] = 1.0f;
+
+			animatedSprite.text[1].fUVs[0] = 0.34f; //bottom left
+			animatedSprite.text[1].fUVs[1] = 0.0f;
+
+			animatedSprite.text[4].fUVs[0] = 0.34f; // bottom left corner
+			animatedSprite.text[4].fUVs[1] = 0.0f;
+
+			animatedSprite.text[5].fUVs[0] = 0.34f; // upper left corner
+			animatedSprite.text[5].fUVs[1] = 1.0f;
+			if (animatedSprite.FrameHandler > 10)
+			{
+				currentFrame = Frame5;
+				animatedSprite.FrameHandler = 0;
+
+			}
+			break;
+
+		case Frame5:
+
+			animatedSprite.text[0].fUVs[0] = 0.5f; //topright of the triangle
+			animatedSprite.text[0].fUVs[1] = 1.0f;
+
+			animatedSprite.text[2].fUVs[0] = 0.5f; //bottom right
+			animatedSprite.text[2].fUVs[1] = 0.00f;
+
+			animatedSprite.text[3].fUVs[0] = 0.5f; //upper right
+			animatedSprite.text[3].fUVs[1] = 1.0f;
+
+			animatedSprite.text[1].fUVs[0] = 0.425f; //bottom left
+			animatedSprite.text[1].fUVs[1] = 0.0f;
+
+			animatedSprite.text[4].fUVs[0] = 0.425f; // bottom left corner
+			animatedSprite.text[4].fUVs[1] = 0.0f;
+
+			animatedSprite.text[5].fUVs[0] = 0.425f; // upper left corner
+			animatedSprite.text[5].fUVs[1] = 1.0f;
+			if (animatedSprite.FrameHandler > 10)
+			{
+				currentFrame = Frame6;
+				animatedSprite.FrameHandler = 0;
+
+			}
+			break;
+
+		case Frame6:
+
+			animatedSprite.text[0].fUVs[0] = 0.58f; //topright of the triangle
+			animatedSprite.text[0].fUVs[1] = 1.0f;
+
+			animatedSprite.text[2].fUVs[0] = 0.58f; //bottom right
+			animatedSprite.text[2].fUVs[1] = 0.00f;
+
+			animatedSprite.text[3].fUVs[0] = 0.58f; //upper right
+			animatedSprite.text[3].fUVs[1] = 1.0f;
+
+			animatedSprite.text[1].fUVs[0] = 0.5f; //bottom left
+			animatedSprite.text[1].fUVs[1] = 0.0f;
+
+			animatedSprite.text[4].fUVs[0] = 0.5f; // bottom left corner
+			animatedSprite.text[4].fUVs[1] = 0.0f;
+
+			animatedSprite.text[5].fUVs[0] = 0.5f; // upper left corner
+			animatedSprite.text[5].fUVs[1] = 1.0f;
+			if (animatedSprite.FrameHandler > 10)
+			{
+				currentFrame = Frame7;
+				animatedSprite.FrameHandler = 0;
+
+			}
+			break;
+
+		case Frame7:
+
+			animatedSprite.text[0].fUVs[0] = 0.66f; //topright of the triangle
+			animatedSprite.text[0].fUVs[1] = 1.0f;
+
+			animatedSprite.text[2].fUVs[0] = 0.66f; //bottom right
+			animatedSprite.text[2].fUVs[1] = 0.00f;
+
+			animatedSprite.text[3].fUVs[0] = 0.66f; //upper right
+			animatedSprite.text[3].fUVs[1] = 1.0f;
+
+			animatedSprite.text[1].fUVs[0] = 0.58f; //bottom left
+			animatedSprite.text[1].fUVs[1] = 0.0f;
+
+			animatedSprite.text[4].fUVs[0] = 0.58f; // bottom left corner
+			animatedSprite.text[4].fUVs[1] = 0.0f;
+
+			animatedSprite.text[5].fUVs[0] = 0.58f; // upper left corner
+			animatedSprite.text[5].fUVs[1] = 1.0f;
+
+			if (animatedSprite.FrameHandler > 10)
+			{
+				currentFrame = Frame8;
+				animatedSprite.FrameHandler = 0;
+
+			}
+			break;
+
+		case Frame8:
+
+			animatedSprite.text[0].fUVs[0] = 0.74f; //topright of the triangle
+			animatedSprite.text[0].fUVs[1] = 1.0f;
+
+			animatedSprite.text[2].fUVs[0] = 0.74f; //bottom right
+			animatedSprite.text[2].fUVs[1] = 0.00f;
+
+			animatedSprite.text[3].fUVs[0] = 0.74f; //upper right
+			animatedSprite.text[3].fUVs[1] = 1.0f;
+
+			animatedSprite.text[1].fUVs[0] = 0.66f; //bottom left
+			animatedSprite.text[1].fUVs[1] = 0.0f;
+
+			animatedSprite.text[4].fUVs[0] = 0.66f; // bottom left corner
+			animatedSprite.text[4].fUVs[1] = 0.0f;
+
+			animatedSprite.text[5].fUVs[0] = 0.66f; // upper left corner
+			animatedSprite.text[5].fUVs[1] = 1.0f;
+			if (animatedSprite.FrameHandler > 10)
+			{
+				currentFrame = Frame9;
+				animatedSprite.FrameHandler = 0;
+
+			}
+			break;
+
+		case Frame9:
+			animatedSprite.text[0].fUVs[0] = 0.83f; //topright of the triangle
+			animatedSprite.text[0].fUVs[1] = 1.0f;
+
+			animatedSprite.text[2].fUVs[0] = 0.83f; //bottom right
+			animatedSprite.text[2].fUVs[1] = 0.00f;
+
+			animatedSprite.text[3].fUVs[0] = 0.83f; //upper right
+			animatedSprite.text[3].fUVs[1] = 1.0f;
+
+			animatedSprite.text[1].fUVs[0] = 0.75f; //bottom left
+			animatedSprite.text[1].fUVs[1] = 0.0f;
+
+			animatedSprite.text[4].fUVs[0] = 0.75f; // bottom left corner
+			animatedSprite.text[4].fUVs[1] = 0.0f;
+
+			animatedSprite.text[5].fUVs[0] = 0.75f; // upper left corner
+			animatedSprite.text[5].fUVs[1] = 1.0f;
+
+			if (animatedSprite.FrameHandler > 10)
+			{
+				currentFrame = Frame10;
+				animatedSprite.FrameHandler = 0;
+
+			}
+			break;
+
+		case Frame10:
+			animatedSprite.text[0].fUVs[0] = 0.92f; //topright of the triangle
+			animatedSprite.text[0].fUVs[1] = 1.0f;
+
+			animatedSprite.text[2].fUVs[0] = 0.92f; //bottom right
+			animatedSprite.text[2].fUVs[1] = 0.00f;
+
+			animatedSprite.text[3].fUVs[0] = 0.92f; //upper right
+			animatedSprite.text[3].fUVs[1] = 1.0f;
+
+			animatedSprite.text[1].fUVs[0] = 0.84f; //bottom left
+			animatedSprite.text[1].fUVs[1] = 0.0f;
+
+			animatedSprite.text[4].fUVs[0] = 0.84f; // bottom left corner
+			animatedSprite.text[4].fUVs[1] = 0.0f;
+
+			animatedSprite.text[5].fUVs[0] = 0.84f; // upper left corner
+			animatedSprite.text[5].fUVs[1] = 1.0f;
+			if (animatedSprite.FrameHandler > 10)
+			{
+				currentFrame = Frame11;
+				animatedSprite.FrameHandler = 0;
+
+			}
+			break;
+
+		case Frame11:
+			animatedSprite.text[0].fUVs[0] = 1.0f; //topright of the triangle
+			animatedSprite.text[0].fUVs[1] = 1.0f;
+
+			animatedSprite.text[2].fUVs[0] = 1.0f; //bottom right
+			animatedSprite.text[2].fUVs[1] = 0.00f;
+
+			animatedSprite.text[3].fUVs[0] = 1.0f; //upper right
+			animatedSprite.text[3].fUVs[1] = 1.0f;
+
+			animatedSprite.text[1].fUVs[0] = 0.92f; //bottom left
+			animatedSprite.text[1].fUVs[1] = 0.0f;
+
+			animatedSprite.text[4].fUVs[0] = 0.92f; // bottom left corner
+			animatedSprite.text[4].fUVs[1] = 0.0f;
+
+			animatedSprite.text[5].fUVs[0] = 0.92f; // upper left corner
+			animatedSprite.text[5].fUVs[1] = 1.0f;
+			if (animatedSprite.FrameHandler > 10)
+			{
+				currentFrame = Frame0;
+				animatedSprite.FrameHandler = 0;
+
+			}
+			break;
+
+			/*{
+				myText[i].Draw();
+				for (int j = 0; j < 6; j++)
+				{
+				myText[j].fPositions[0]
+				}*/
+		}
+
 		for (int i = 0; i < 10; i++)
 		{
 			myAsteroids[i].Draw();
@@ -82,16 +424,17 @@ int main()
 
 		for (int i = 0; i < 50; i++)
 		{
-		myStars[i].Draw();
+			myStars[i].Draw();
 		}
-		
-		
+
+
 		glfwSwapBuffers(myGlobals.window);
 
 		if (glfwGetKey(myGlobals.window, GLFW_KEY_ESCAPE))
 		{
 			break;
 		}
+
 
 		//poll for and process events
 		glfwPollEvents();

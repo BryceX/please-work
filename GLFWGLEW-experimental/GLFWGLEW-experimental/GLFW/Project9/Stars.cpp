@@ -12,8 +12,8 @@ Stars::Stars()
 	
 	//x position of the left corner 
 
-		stars[0].fPositions[0] = rand() % 1025;
-		stars[0].fPositions[1] = rand() % 1025;
+		stars[0].fPositions[0] = rand() % 600;
+		stars[0].fPositions[1] = rand() % 600;
 		stars[0].fPositions[2] = 0.0f;
 		stars[0].fPositions[3] = 1.0f;
 		stars[0].fColours[0] = 1.0f;

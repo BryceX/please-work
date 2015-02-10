@@ -22,15 +22,15 @@ Text::Text()
 	text = new Vertex[6];
 	text[0].fPositions[0] = myGlobals.screenSize / 2 + offSet;
 	//y position of the top corner
-	text[0].fPositions[1] = myGlobals.screenSize / 3 + offSet;
+	text[0].fPositions[1] = myGlobals.screenSize / 2 + offSet;
 	//x position of the left corner 
 	text[1].fPositions[0] = myGlobals.screenSize / 2 - offSet;
 	//y position of the left corner
-	text[1].fPositions[1] = myGlobals.screenSize / 3 - offSet;
+	text[1].fPositions[1] = myGlobals.screenSize / 2 - offSet;
 	//x position of the right corner
 	text[2].fPositions[0] = myGlobals.screenSize / 2 + offSet;
 	//y pos right corner
-	text[2].fPositions[1] = myGlobals.screenSize / 3 - offSet;
+	text[2].fPositions[1] = myGlobals.screenSize / 2 - offSet;
 
 	//opposite corner of the letter
 	text[3].fPositions[0] = text[0].fPositions[0];
@@ -125,7 +125,7 @@ Text::Text()
 	uiProgramTextured = myGlobals.CreateProgram("VertexShader.glsl", "TexturedFragmentShader.glsl");
 
 	// load the texture
-	int width = 5, height = 5, bpp = 4;
+	int width = 50, height = 50, bpp = 4;
 	uiTextureId = myGlobals.loadTexture("Text.png", width, height, bpp);
 
 

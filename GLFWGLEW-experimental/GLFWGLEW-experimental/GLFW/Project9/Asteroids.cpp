@@ -9,8 +9,8 @@ Asteroids::Asteroids()
 
 
  asteroids0 = new Vertex[6];
-	asteroids0[0].fPositions[0] = rand() % 900;
-	asteroids0[0].fPositions[1] = rand() % 900;
+	asteroids0[0].fPositions[0] = rand() % 600;
+	asteroids0[0].fPositions[1] = rand() % 600;
 
 	asteroids0[1].fPositions[0] = asteroids0[0].fPositions[0] + astConstant;
 	asteroids0[1].fPositions[1] = asteroids0[0].fPositions[1] - astConstant;

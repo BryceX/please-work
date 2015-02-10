@@ -10,15 +10,15 @@ Player::Player()
 	playerShip = new Vertex[3];
 	playerShip[0].fPositions[0] = myGlobals.screenSize / 2;
 	//y position of the top corner
-	playerShip[0].fPositions[1] = myGlobals.screenSize / 2 + 30.0f;
+	playerShip[0].fPositions[1] = (myGlobals.screenSize / 2) + 30.0f;
 	//x position of the left corner 
-	playerShip[1].fPositions[0] = myGlobals.screenSize / 2 - 30.0f;
+	playerShip[1].fPositions[0] = (myGlobals.screenSize / 2) - 30.0f;
 	//y position of the left corner
-	playerShip[1].fPositions[1] = myGlobals.screenSize / 2 - 30.0f;
+	playerShip[1].fPositions[1] = (myGlobals.screenSize / 2) - 30.0f;
 	//x position of the right corner
-	playerShip[2].fPositions[0] = myGlobals.screenSize / 2 + 30.0f;
+	playerShip[2].fPositions[0] = (myGlobals.screenSize / 2) + 30.0f;
 	//y pos right corner
-	playerShip[2].fPositions[1] = myGlobals.screenSize / 2 - 30.0f;
+	playerShip[2].fPositions[1] = (myGlobals.screenSize / 2) - 30.0f;
 	for (int i = 0; i < 3; i++)
 	{
 		playerShip[i].fPositions[2] = 0.0f;
