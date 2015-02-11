@@ -28,6 +28,7 @@ float lastFrame = currentTime;
 
 struct FontLetter
 {
+	int id;
 	int startX;
 	int startY;
 	int endX;
@@ -107,38 +108,35 @@ int main()
 
 	int idHolder = charNode->IntAttribute("id");
 
-	FontLetter tempLetter[191];
+	FontLetter tempLetter = FontLetter();
 	//for (int i = 0; i < 191; i++)
 	
 
-	characterMap[idHolder] = tempLetter;
+	
 
 	
 
-	idHolder = charNode->IntAttribute("id");;
-
-	FontLetter tempLetter2;
-	//for (int i = 0; i < 191; i++)
-	tempLetter2.startX = charNode->IntAttribute("x");
-	tempLetter2.startY = charNode->IntAttribute("y");
-	tempLetter2.endX = tempLetter.startX + charNode->IntAttribute("width");
-	tempLetter2.endY = tempLetter.startY + charNode->IntAttribute("height");
-
-	characterMap[idHolder] = tempLetter2;
+	idHolder = charNode->IntAttribute("id");
 
 
-	for (int i = 0; i < 191; i++)
+	
+
+
+	while (charNode != nullptr)
 	{
-		tempLetter[i].startX = charNode->IntAttribute("x");
-		tempLetter[i].startY = charNode->IntAttribute("y");
-		tempLetter[i].endX = tempLetter.startX + charNode->IntAttribute("width");
-		tempLetter[i].endY = tempLetter.startY + charNode->IntAttribute("height");
-		std::cout << templetter[i] << endl;
+		tempLetter.id = charNode->IntAttribute("id");
+		tempLetter.startX = charNode->IntAttribute("x");
+		tempLetter.startY = charNode->IntAttribute("y");
+		tempLetter.endX = tempLetter.startX + charNode->IntAttribute("width");
+		tempLetter.endY = tempLetter.startY + charNode->IntAttribute("height");
+		std::cout << tempLetter.id << std::endl;
+		
+		characterMap[tempLetter.id] = tempLetter;
+
 		charNode = charNode->NextSiblingElement("char");
-	
 	}
 
-	//characterMap[]
+	FontLetter letterA = characterMap['A'];
 
 
 	while (!glfwWindowShouldClose(myGlobals.window))
