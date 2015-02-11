@@ -23,9 +23,6 @@ Sprite::Sprite()
 	spriteID[1].fPositions[0] = -(width/2);
 	//y position of the left corner
 	spriteID[1].fPositions[1] = -(height/2);
-
-
-
 	//x position of the right corner
 	spriteID[2].fPositions[0] = width/2;
 	//y pos right corner
@@ -38,6 +35,8 @@ Sprite::Sprite()
 	spriteID[4].fPositions[1] = spriteID[1].fPositions[1];
 	spriteID[5].fPositions[0] = spriteID[1].fPositions[0];
 	spriteID[5].fPositions[1] = spriteID[0].fPositions[1];
+
+	//sets color and other positions for the quad
 	for (int i = 0; i < 6; i++)
 	{
 		spriteID[i].fPositions[2] = 0.0f;
@@ -152,7 +151,13 @@ void Sprite::GetVar(float width, float height, float X, float Y)
 	this->y = Y;
 	SetXY();
 }
-
+void Sprite::Normalize(float sheetWidth, float sheetHeight)
+{
+	this->sheetWidth = sheetWidth;
+	this->sheetHeight = sheetHeight;
+	sheetNormWid = 1 / sheetWidth;
+	sheetNormHgt = 1 / sheetHeight;
+}
 
 void Sprite::SetXY()
 {
@@ -172,6 +177,347 @@ void Sprite::SetXY()
 	spriteID[5].fPositions[1] = spriteID[0].fPositions[1];
 }
 
+void Sprite::Animate()
+{
+	enum Frames
+	{
+		Frame0,
+		Frame1,
+		Frame2,
+		Frame3,
+		Frame4,
+		Frame5,
+		Frame6,
+		Frame7,
+		Frame8,
+		Frame9,
+		Frame10,
+		Frame11
+	};
+	int currentFrame = Frame0;
+	switch (currentFrame)
+	{
+	case Frame0:
+		spriteID[0].fUVs[0] = 0.08f; //topright of the triangle
+		spriteID[0].fUVs[1] = 1.0f;
+
+		spriteID[2].fUVs[0] = 0.08f;//bottom right
+		spriteID[2].fUVs[1] = 0.00f;
+
+		spriteID[3].fUVs[0] = 0.08f; //upper right
+		spriteID[3].fUVs[1] = 1.0f;
+
+		spriteID[1].fUVs[0] = 0.0f; //bottom left
+		spriteID[1].fUVs[1] = 0.0f;
+
+		spriteID[4].fUVs[0] = 0.0f; // bottom left corner
+		spriteID[4].fUVs[1] = 0.0f;
+
+		spriteID[5].fUVs[0] = 0.0f; // upper left corner
+		spriteID[5].fUVs[1] = 1.0f;
+		if (FrameHandler > 0.1)
+		{
+			currentFrame = Frame1;
+			FrameHandler = 0;
+		}
+		break;
+	case Frame1:
+
+		spriteID[0].fUVs[0] = 0.16f; //topright of the triangle
+		spriteID[0].fUVs[1] = 1.0f;
+
+		spriteID[2].fUVs[0] = 0.16f; //bottom right
+		spriteID[2].fUVs[1] = 0.00f;
+
+		spriteID[3].fUVs[0] = 0.16f; //upper right
+		spriteID[3].fUVs[1] = 1.0f;
+
+		spriteID[1].fUVs[0] = 0.08f; //bottom left
+		spriteID[1].fUVs[1] = 0.0f;
+
+		spriteID[4].fUVs[0] = 0.08f; // bottom left corner
+		spriteID[4].fUVs[1] = 0.0f;
+
+		spriteID[5].fUVs[0] = 0.08f; // upper left corner
+		spriteID[5].fUVs[1] = 1.0f;
+		if (FrameHandler > 0.1)
+		{
+			currentFrame = Frame2;
+			FrameHandler = 0;
+		}
+		break;
+
+	case Frame2:
+
+		spriteID[0].fUVs[0] = 0.24f; //topright of the triangle
+		spriteID[0].fUVs[1] = 1.0f;
+
+		spriteID[2].fUVs[0] = 0.24f; //bottom right
+		spriteID[2].fUVs[1] = 0.00f;
+
+		spriteID[3].fUVs[0] = 0.24f; //upper right
+		spriteID[3].fUVs[1] = 1.0f;
+
+		spriteID[1].fUVs[0] = 0.16f; //bottom left
+		spriteID[1].fUVs[1] = 0.0f;
+
+		spriteID[4].fUVs[0] = 0.16f; // bottom left corner
+		spriteID[4].fUVs[1] = 0.0f;
+
+		spriteID[5].fUVs[0] = 0.16f; // upper left corner
+		spriteID[5].fUVs[1] = 1.0f;
+
+		if (FrameHandler > 0.1)
+		{
+			currentFrame = Frame3;
+			FrameHandler = 0;
+
+		}
+		break;
+
+	case Frame3:
+
+		spriteID[0].fUVs[0] = 0.33f; //topright of the triangle
+		spriteID[0].fUVs[1] = 1.0f;
+
+		spriteID[2].fUVs[0] = 0.33f; //bottom right
+		spriteID[2].fUVs[1] = 0.00f;
+
+		spriteID[3].fUVs[0] = 0.33f; //upper right
+		spriteID[3].fUVs[1] = 1.0f;
+
+		spriteID[1].fUVs[0] = 0.25f; //bottom left
+		spriteID[1].fUVs[1] = 0.0f;
+
+		spriteID[4].fUVs[0] = 0.25f; // bottom left corner
+		spriteID[4].fUVs[1] = 0.0f;
+
+		spriteID[5].fUVs[0] = 0.25f; // upper left corner
+		spriteID[5].fUVs[1] = 1.0f;
+		if (FrameHandler > 0.1)
+		{
+			currentFrame = Frame4;
+			FrameHandler = 0;
+
+		}
+		break;
+
+	case Frame4:
+		spriteID[0].fUVs[0] = 0.42f; //topright of the triangle
+		spriteID[0].fUVs[1] = 1.0f;
+
+		spriteID[2].fUVs[0] = 0.42f; //bottom right
+		spriteID[2].fUVs[1] = 0.00f;
+
+		spriteID[3].fUVs[0] = 0.42f; //upper right
+		spriteID[3].fUVs[1] = 1.0f;
+
+		spriteID[1].fUVs[0] = 0.34f; //bottom left
+		spriteID[1].fUVs[1] = 0.0f;
+
+		spriteID[4].fUVs[0] = 0.34f; // bottom left corner
+		spriteID[4].fUVs[1] = 0.0f;
+
+		spriteID[5].fUVs[0] = 0.34f; // upper left corner
+		spriteID[5].fUVs[1] = 1.0f;
+		if (FrameHandler > 0.1)
+		{
+			currentFrame = Frame5;
+			FrameHandler = 0;
+
+		}
+		break;
+	case Frame5:
+
+		spriteID[0].fUVs[0] = 0.5f; //topright of the triangle
+		spriteID[0].fUVs[1] = 1.0f;
+
+		spriteID[2].fUVs[0] = 0.5f; //bottom right
+		spriteID[2].fUVs[1] = 0.00f;
+
+		spriteID[3].fUVs[0] = 0.5f; //upper right
+		spriteID[3].fUVs[1] = 1.0f;
+
+		spriteID[1].fUVs[0] = 0.425f; //bottom left
+		spriteID[1].fUVs[1] = 0.0f;
+
+		spriteID[4].fUVs[0] = 0.425f; // bottom left corner
+		spriteID[4].fUVs[1] = 0.0f;
+
+		spriteID[5].fUVs[0] = 0.425f; // upper left corner
+		spriteID[5].fUVs[1] = 1.0f;
+		if (FrameHandler > 0.1)
+		{
+			currentFrame = Frame6;
+			FrameHandler = 0;
+
+		}
+		break;
+
+	case Frame6:
+
+		spriteID[0].fUVs[0] = 0.58f;
+		spriteID[0].fUVs[1] = 1.0f;
+
+		spriteID[2].fUVs[0] = 0.58f;
+		spriteID[2].fUVs[1] = 0.00f;
+
+		spriteID[3].fUVs[0] = 0.58f;
+		spriteID[3].fUVs[1] = 1.0f;
+
+		spriteID[1].fUVs[0] = 0.5f;
+		spriteID[1].fUVs[1] = 0.0f;
+
+		spriteID[4].fUVs[0] = 0.5f;
+		spriteID[4].fUVs[1] = 0.0f;
+
+		spriteID[5].fUVs[0] = 0.5f;
+		spriteID[5].fUVs[1] = 1.0f;
+		if (FrameHandler > 0.1)
+		{
+			currentFrame = Frame7;
+			FrameHandler = 0;
+
+		}
+		break;
+
+	case Frame7:
+
+		spriteID[0].fUVs[0] = 0.66f;
+		spriteID[0].fUVs[1] = 1.0f;
+
+		spriteID[2].fUVs[0] = 0.66f;
+		spriteID[2].fUVs[1] = 0.00f;
+
+		spriteID[3].fUVs[0] = 0.66f;
+		spriteID[3].fUVs[1] = 1.0f;
+
+		spriteID[1].fUVs[0] = 0.58f;
+		spriteID[1].fUVs[1] = 0.0f;
+
+		spriteID[4].fUVs[0] = 0.58f;
+		spriteID[4].fUVs[1] = 0.0f;
+
+		spriteID[5].fUVs[0] = 0.58f;
+		spriteID[5].fUVs[1] = 1.0f;
+
+		if (FrameHandler > 0.1)
+		{
+			currentFrame = Frame8;
+		FrameHandler = 0;
+
+		}
+		break;
+
+	case Frame8:
+
+		spriteID[0].fUVs[0] = 0.74f;
+		spriteID[0].fUVs[1] = 1.0f;
+
+		spriteID[2].fUVs[0] = 0.74f;
+		spriteID[2].fUVs[1] = 0.00f;
+
+		spriteID[3].fUVs[0] = 0.74f;
+		spriteID[3].fUVs[1] = 1.0f;
+
+		spriteID[1].fUVs[0] = 0.66f;
+		spriteID[1].fUVs[1] = 0.0f;
+
+		spriteID[4].fUVs[0] = 0.66f;
+		spriteID[4].fUVs[1] = 0.0f;
+
+		spriteID[5].fUVs[0] = 0.66f;
+		spriteID[5].fUVs[1] = 1.0f;
+		if (FrameHandler > 0.1)
+		{
+			currentFrame = Frame9;
+			FrameHandler = 0;
+
+		}
+		break;
+
+	case Frame9:
+		spriteID[0].fUVs[0] = 0.83f;
+		spriteID[0].fUVs[1] = 1.0f;
+
+		spriteID[2].fUVs[0] = 0.83f;
+		spriteID[2].fUVs[1] = 0.00f;
+
+		spriteID[3].fUVs[0] = 0.83f;
+		spriteID[3].fUVs[1] = 1.0f;
+
+		spriteID[1].fUVs[0] = 0.75f;
+		spriteID[1].fUVs[1] = 0.0f;
+
+		spriteID[4].fUVs[0] = 0.75f;
+		spriteID[4].fUVs[1] = 0.0f;
+
+		spriteID[5].fUVs[0] = 0.75f;
+		spriteID[5].fUVs[1] = 1.0f;
+
+		if (FrameHandler > 0.1)
+		{
+			currentFrame = Frame10;
+			FrameHandler = 0;
+
+		}
+		break;
+
+	case Frame10:
+		spriteID[0].fUVs[0] = 0.92f;
+		spriteID[0].fUVs[1] = 1.0f;
+
+		spriteID[2].fUVs[0] = 0.92f;
+		spriteID[2].fUVs[1] = 0.00f;
+
+		spriteID[3].fUVs[0] = 0.92f;
+		spriteID[3].fUVs[1] = 1.0f;
+
+		spriteID[1].fUVs[0] = 0.84f;
+		spriteID[1].fUVs[1] = 0.0f;
+
+		spriteID[4].fUVs[0] = 0.84f;
+		spriteID[4].fUVs[1] = 0.0f;
+
+		spriteID[5].fUVs[0] = 0.84f;
+		spriteID[5].fUVs[1] = 1.0f;
+		if (FrameHandler > 0.1)
+		{
+			currentFrame = Frame11;
+			FrameHandler = 0;
+
+		}
+		break;
+
+	case Frame11:
+		spriteID[0].fUVs[0] = 1.0f; //topright of the triangle
+		spriteID[0].fUVs[1] = 1.0f;
+
+		spriteID[2].fUVs[0] = 1.0f; //bottom right
+		spriteID[2].fUVs[1] = 0.00f;
+
+		spriteID[3].fUVs[0] = 1.0f; //upper right
+		spriteID[3].fUVs[1] = 1.0f;
+
+		spriteID[1].fUVs[0] = 0.92f; //bottom left
+		spriteID[1].fUVs[1] = 0.0f;
+
+		spriteID[4].fUVs[0] = 0.92f; // bottom left corner
+		spriteID[4].fUVs[1] = 0.0f;
+
+		spriteID[5].fUVs[0] = 0.92f; // upper left corner
+		spriteID[5].fUVs[1] = 1.0f;
+		if (FrameHandler > 0.1)
+		{
+			currentFrame = Frame0;
+			FrameHandler = 0;
+
+		}
+		break;
+
+		
+}
+}
 
 Sprite::~Sprite()
 {

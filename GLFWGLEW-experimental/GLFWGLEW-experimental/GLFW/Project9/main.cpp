@@ -2,6 +2,7 @@
 #include "wglew.h"
 #include <GLFW/glfw3.h>
 #include <vector>
+#include <map>
 #include <string>
 #include <fstream>
 #include <SOIL.h>
@@ -14,6 +15,7 @@
 #include "Text.h"
 #include "tinyxml2.h"
 #include "Animator.h"
+#include <fstream>
 
 int astConstant = 40;
 float deltaTime = 0;
@@ -24,6 +26,13 @@ float timeSinceLastFrame = 0;
 float currentTime = glfwGetTime();
 float lastFrame = currentTime;
 
+struct FontLetter
+{
+	int startX;
+	int startY;
+	int endX;
+	int endY;
+};
 
 void GetDeltaTime()
 {
@@ -87,13 +96,51 @@ int main()
 
 	//set up the mapping of the screen to pixel co-ordinates. Try changing these values to see what happens.
 	//loop until the user closes the window
+
+	std::map<int, FontLetter> characterMap;
+
 	tinyxml2::XMLDocument arialFont;
 	arialFont.LoadFile("arial.fnt");
 	tinyxml2::XMLElement *rootNode = arialFont.FirstChildElement("font");
 	tinyxml2::XMLElement *currentNode = rootNode->FirstChildElement("chars");
 	tinyxml2::XMLElement *charNode = currentNode->FirstChildElement("char");
 
-	int tinyXMLINT = charNode->IntAttribute("id");
+	int idHolder = charNode->IntAttribute("id");
+
+	FontLetter tempLetter[191];
+	//for (int i = 0; i < 191; i++)
+	
+
+	characterMap[idHolder] = tempLetter;
+
+	
+
+	idHolder = charNode->IntAttribute("id");;
+
+	FontLetter tempLetter2;
+	//for (int i = 0; i < 191; i++)
+	tempLetter2.startX = charNode->IntAttribute("x");
+	tempLetter2.startY = charNode->IntAttribute("y");
+	tempLetter2.endX = tempLetter.startX + charNode->IntAttribute("width");
+	tempLetter2.endY = tempLetter.startY + charNode->IntAttribute("height");
+
+	characterMap[idHolder] = tempLetter2;
+
+
+	for (int i = 0; i < 191; i++)
+	{
+		tempLetter[i].startX = charNode->IntAttribute("x");
+		tempLetter[i].startY = charNode->IntAttribute("y");
+		tempLetter[i].endX = tempLetter.startX + charNode->IntAttribute("width");
+		tempLetter[i].endY = tempLetter.startY + charNode->IntAttribute("height");
+		std::cout << templetter[i] << endl;
+		charNode = charNode->NextSiblingElement("char");
+	
+	}
+
+	//characterMap[]
+
+
 	while (!glfwWindowShouldClose(myGlobals.window))
 	{
 		//GetDeltaTime();
@@ -105,7 +152,7 @@ int main()
 
 
 
-		std::cout << deltaTime << std::endl;
+		std::cout << idHolder << std::endl;
 
 		//draw code goes here
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);

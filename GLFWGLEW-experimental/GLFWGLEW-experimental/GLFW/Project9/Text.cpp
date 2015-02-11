@@ -13,7 +13,7 @@ Text::Text()
 	Globals& myGlobals = Globals::instance();
 	screenSize = 1;
 	offSet = 10.0f;
-	uvOffSet = offSet / 1000;
+	uvOffSet = offSet/1000;
 	trueOffSet = 1 / screenSize;
 	column = 0;
 	row = 0;
@@ -78,12 +78,7 @@ Text::Text()
 	}
 	
 	
-	for (int i = 0; i < 6; i++)
-	{
-		text[i].fUVs[0] += 0.064f*column;
-		text[i].fUVs[1] -= 0.064f*row;
 
-	}
 	
 	
 	//making buffers
@@ -104,10 +99,14 @@ void Text::SetLetter(float a_ascii)
 	this-> column = a_ascii;
 }
 
-void Text::GetLetterInfo(int id, int x, int y, int width, int height)
+void Text::GetLetterInfo(int id, float x, float y, float width, float height)
 {
 	this->id = id;
 	this->x = x;
+	this->y = y;
+	this->width = width;
+	this->height = height;
+
 }
 
 void Text::Draw()
@@ -128,10 +127,8 @@ void Text::Draw()
 
 	text[3].fPositions[0] = text[0].fPositions[0];
 	text[3].fPositions[1] = text[0].fPositions[1];
-
 	text[4].fPositions[0] = text[1].fPositions[0];
 	text[4].fPositions[1] = text[1].fPositions[1];
-
 	text[5].fPositions[0] = text[1].fPositions[0];
 	text[5].fPositions[1] = text[0].fPositions[1];
 
@@ -144,7 +141,7 @@ void Text::Draw()
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, uiIBOText);	// sets up the IBO we gon use
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-	// send the ortho to the shader
+	//send the ortho to the shader
 	glUniformMatrix4fv(MatrixIDFlat, 1, GL_FALSE, myGlobals.orthographicProjection);
 	//enable the vertex array state, since we're sending in an array of vertices
 	glEnableVertexAttribArray(0);

@@ -21,13 +21,19 @@ public:
 	float offSet;
 	float uvOffSet;
 	float trueOffSet;
-	float FrameHandler;
+	
+	float FrameHandler;//delay between sprite animations
 	int id;
 	int x;
 	int y;
 	int width;
 	int height;
-
+	void Animate();
+	void Normalize(float sheetWidth, float sheetHeight);
+	float sheetWidth;
+	float sheetHeight;
+	float sheetNormWid;
+	float sheetNormHgt;
 
 	Sprite();
 	~Sprite();

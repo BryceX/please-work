@@ -14,7 +14,7 @@ public:
 	GLuint uiIBOText;
 	GLuint  uiProgramTextured;
 	GLuint  uiTextureId;
-	void SetSize(float a_ScreenSize);
+
 	void SetLetter(float a_ascii);
 	float screenSize;
 	float offSet;
@@ -22,7 +22,7 @@ public:
 	float trueOffSet;
 	int column;
 	int row;
-	void GetLetterInfo(int id, int x, int y, int width, int height);
+	void GetLetterInfo(int id, float x, float y, float width, float height);
 
 	int id;
 	int x;
