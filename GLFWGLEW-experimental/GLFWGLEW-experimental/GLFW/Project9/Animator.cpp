@@ -19,13 +19,20 @@ Animator::Animator()
 	
 	//put vertex info first
 	text = new Vertex[6];
+	//x pos of top right corner
 	text[0].fPositions[0] = myGlobals.screenSize / 1.5 + offSet;
 	//y position of the top corner
 	text[0].fPositions[1] = myGlobals.screenSize / 1.5 + offSet;
+	
+	
+	
 	//x position of the left corner 
 	text[1].fPositions[0] = myGlobals.screenSize / 1.5 - offSet;
 	//y position of the left corner
 	text[1].fPositions[1] = myGlobals.screenSize / 1.5 - offSet;
+
+
+
 	//x position of the right corner
 	text[2].fPositions[0] = myGlobals.screenSize / 1.5 + offSet;
 	//y pos right corner

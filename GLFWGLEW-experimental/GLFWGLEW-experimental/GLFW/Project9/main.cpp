@@ -16,6 +16,20 @@
 #include "Animator.h"
 
 int astConstant = 40;
+float deltaTime = 0;
+float timeSinceLastFrame = 0;
+
+
+
+float currentTime = glfwGetTime();
+float lastFrame = currentTime;
+
+
+void GetDeltaTime()
+{
+	deltaTime + glfwGetTime();
+	glfwSetTime(0);
+}
 
 int main()
 {
@@ -27,7 +41,7 @@ int main()
 		return -1;
 	}
 	myGlobals.window = glfwCreateWindow(600, 600, "Hello World", NULL, NULL);
-	myGlobals.orthographicProjection = myGlobals.getOrtho(0, 1024, 0, 720, 0, 100);
+	myGlobals.orthographicProjection = myGlobals.getOrtho(0, 600, 0, 600, 0, 100);
 	if (!myGlobals.window)
 	{
 		glfwTerminate();
@@ -47,9 +61,10 @@ int main()
 		return -1;
 	}
 	//Initialise GLFW
-	Player myShip;
+	Player myShip("zeroprofile.jpg");
 	Stars myStars[50];
-	Text myText;
+	Text myText[10];
+	
 	Asteroids myAsteroids[10];
 	Animator animatedSprite;
 
@@ -72,33 +87,57 @@ int main()
 
 	//set up the mapping of the screen to pixel co-ordinates. Try changing these values to see what happens.
 	//loop until the user closes the window
+	tinyxml2::XMLDocument arialFont;
+	arialFont.LoadFile("arial.fnt");
+	tinyxml2::XMLElement *rootNode = arialFont.FirstChildElement("font");
+	tinyxml2::XMLElement *currentNode = rootNode->FirstChildElement("chars");
+	tinyxml2::XMLElement *charNode = currentNode->FirstChildElement("char");
 
-
+	int tinyXMLINT = charNode->IntAttribute("id");
 	while (!glfwWindowShouldClose(myGlobals.window))
 	{
-		animatedSprite.FrameHandler += glfwGetTime();
+		//GetDeltaTime();
+		animatedSprite.FrameHandler += deltaTime;
+
+		currentTime = glfwGetTime();
+		deltaTime = currentTime - lastFrame;
+		lastFrame = currentTime;
+
+
+
+		std::cout << deltaTime << std::endl;
 
 		//draw code goes here
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		myShip.Move();
 		myShip.Draw();
-		myText.Draw();
-		animatedSprite.Draw();
 
+		float textCursor[2] = { 310, 310 };
+
+		
+		for (int i = 0; i < 10; i++)
+		{
+
+			myText[i].text[0].fPositions[0] = 310 + 10*i;// = 310;// + 10.0f * i;
+			myText[i].text[1].fPositions[0] = myText[i].text[0].fPositions[0] - 10;// = 310;// + 10.0f * i;
+			myText[i].text[2].fPositions[0] = myText[i].text[0].fPositions[0];// = 310;// + 10.0f * i;
+			myText[i].Draw();
+		}
+		animatedSprite.Draw();
+		myText[0].SetLetter(6);
 		switch (currentFrame)
 		{
 
 		case Frame0:
-
 			animatedSprite.text[0].fUVs[0] = 0.08f; //topright of the triangle
 			animatedSprite.text[0].fUVs[1] = 1.0f;
 
+			animatedSprite.text[2].fUVs[0] = 0.08f;//bottom right
 			animatedSprite.text[2].fUVs[1] = 0.00f;
 
 			animatedSprite.text[3].fUVs[0] = 0.08f; //upper right
 			animatedSprite.text[3].fUVs[1] = 1.0f;
-
 
 			animatedSprite.text[1].fUVs[0] = 0.0f; //bottom left
 			animatedSprite.text[1].fUVs[1] = 0.0f;
@@ -108,7 +147,7 @@ int main()
 
 			animatedSprite.text[5].fUVs[0] = 0.0f; // upper left corner
 			animatedSprite.text[5].fUVs[1] = 1.0f;
-			if (animatedSprite.FrameHandler > 10)
+			if (animatedSprite.FrameHandler > 0.1)
 			{
 				currentFrame = Frame1;
 				animatedSprite.FrameHandler = 0;
@@ -133,7 +172,7 @@ int main()
 
 			animatedSprite.text[5].fUVs[0] = 0.08f; // upper left corner
 			animatedSprite.text[5].fUVs[1] = 1.0f;
-			if (animatedSprite.FrameHandler > 10)
+			if (animatedSprite.FrameHandler > 0.1)
 			{
 				currentFrame = Frame2;
 				animatedSprite.FrameHandler = 0;
@@ -160,7 +199,7 @@ int main()
 			animatedSprite.text[5].fUVs[0] = 0.16f; // upper left corner
 			animatedSprite.text[5].fUVs[1] = 1.0f;
 
-			if (animatedSprite.FrameHandler > 10)
+			if (animatedSprite.FrameHandler > 0.1)
 			{
 				currentFrame = Frame3;
 				animatedSprite.FrameHandler = 0;
@@ -187,7 +226,7 @@ int main()
 
 			animatedSprite.text[5].fUVs[0] = 0.25f; // upper left corner
 			animatedSprite.text[5].fUVs[1] = 1.0f;
-			if (animatedSprite.FrameHandler > 10)
+			if (animatedSprite.FrameHandler > 0.1)
 			{
 				currentFrame = Frame4;
 				animatedSprite.FrameHandler = 0;
@@ -213,7 +252,7 @@ int main()
 
 			animatedSprite.text[5].fUVs[0] = 0.34f; // upper left corner
 			animatedSprite.text[5].fUVs[1] = 1.0f;
-			if (animatedSprite.FrameHandler > 10)
+			if (animatedSprite.FrameHandler > 0.1)
 			{
 				currentFrame = Frame5;
 				animatedSprite.FrameHandler = 0;
@@ -240,7 +279,7 @@ int main()
 
 			animatedSprite.text[5].fUVs[0] = 0.425f; // upper left corner
 			animatedSprite.text[5].fUVs[1] = 1.0f;
-			if (animatedSprite.FrameHandler > 10)
+			if (animatedSprite.FrameHandler > 0.1)
 			{
 				currentFrame = Frame6;
 				animatedSprite.FrameHandler = 0;
@@ -267,7 +306,7 @@ int main()
 
 			animatedSprite.text[5].fUVs[0] = 0.5f; // upper left corner
 			animatedSprite.text[5].fUVs[1] = 1.0f;
-			if (animatedSprite.FrameHandler > 10)
+			if (animatedSprite.FrameHandler > 0.1)
 			{
 				currentFrame = Frame7;
 				animatedSprite.FrameHandler = 0;
@@ -295,7 +334,7 @@ int main()
 			animatedSprite.text[5].fUVs[0] = 0.58f; // upper left corner
 			animatedSprite.text[5].fUVs[1] = 1.0f;
 
-			if (animatedSprite.FrameHandler > 10)
+			if (animatedSprite.FrameHandler > 0.1)
 			{
 				currentFrame = Frame8;
 				animatedSprite.FrameHandler = 0;
@@ -322,7 +361,7 @@ int main()
 
 			animatedSprite.text[5].fUVs[0] = 0.66f; // upper left corner
 			animatedSprite.text[5].fUVs[1] = 1.0f;
-			if (animatedSprite.FrameHandler > 10)
+			if (animatedSprite.FrameHandler > 0.1)
 			{
 				currentFrame = Frame9;
 				animatedSprite.FrameHandler = 0;
@@ -349,7 +388,7 @@ int main()
 			animatedSprite.text[5].fUVs[0] = 0.75f; // upper left corner
 			animatedSprite.text[5].fUVs[1] = 1.0f;
 
-			if (animatedSprite.FrameHandler > 10)
+			if (animatedSprite.FrameHandler > 0.1)
 			{
 				currentFrame = Frame10;
 				animatedSprite.FrameHandler = 0;
@@ -375,7 +414,7 @@ int main()
 
 			animatedSprite.text[5].fUVs[0] = 0.84f; // upper left corner
 			animatedSprite.text[5].fUVs[1] = 1.0f;
-			if (animatedSprite.FrameHandler > 10)
+			if (animatedSprite.FrameHandler > 0.1)
 			{
 				currentFrame = Frame11;
 				animatedSprite.FrameHandler = 0;
@@ -401,7 +440,7 @@ int main()
 
 			animatedSprite.text[5].fUVs[0] = 0.92f; // upper left corner
 			animatedSprite.text[5].fUVs[1] = 1.0f;
-			if (animatedSprite.FrameHandler > 10)
+			if (animatedSprite.FrameHandler > 0.1)
 			{
 				currentFrame = Frame0;
 				animatedSprite.FrameHandler = 0;

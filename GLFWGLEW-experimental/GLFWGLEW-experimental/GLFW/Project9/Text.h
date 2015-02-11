@@ -15,13 +15,22 @@ public:
 	GLuint  uiProgramTextured;
 	GLuint  uiTextureId;
 	void SetSize(float a_ScreenSize);
+	void SetLetter(float a_ascii);
 	float screenSize;
 	float offSet;
 	float uvOffSet;
 	float trueOffSet;
-	int letter;
 	int column;
 	int row;
+	void GetLetterInfo(int id, int x, int y, int width, int height);
+
+	int id;
+	int x;
+	int y;
+	int width;
+	int height;
+
+
 
 	Text();
 	~Text();

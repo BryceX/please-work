@@ -15,5 +15,6 @@ public:
 	GLuint  uiProgramTextured;
 	GLuint  uiTextureId;
 	Player();
+	Player(const char * texturePath);
 	~Player();
 };

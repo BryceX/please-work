@@ -42,7 +42,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(SolutionDir)\Include;$(SolutionDir)SOIL\src;$(SolutionDir)Lib;$(SolutionDir)tinyxml;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SolutionDir)\Lib;$(SolutionDir)\GLFW\Lib;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)\Lib;$(SolutionDir)tinyxml\tinyxml2\bin\Win32-Debug-Lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -52,7 +52,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>tinyxml2.lib;glew32.lib;opengl32.lib;SOIL.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -75,6 +75,7 @@
     <ClCompile Include="Globals.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Stars.cpp" />
     <ClCompile Include="Test.cpp" />
     <ClCompile Include="Text.cpp" />
@@ -84,6 +85,7 @@
     <ClInclude Include="Asteroids.h" />
     <ClInclude Include="Globals.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Sprite.h" />
     <ClInclude Include="Stars.h" />
     <ClInclude Include="Test.h" />
     <ClInclude Include="Text.h" />

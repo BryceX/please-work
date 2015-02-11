@@ -22,6 +22,8 @@ public:
 		return *m_instance;
 	}
 
+
+
 	float* getOrtho(float left, float right, float bottom, float top, float a_fNear, float a_fFar)
 	{
 		//to correspond with mat4 in the shader
