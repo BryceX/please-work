@@ -9,6 +9,7 @@ class Animator
 {
 public:
 	void Draw();
+	void Move();
 	Vertex* text;
 	GLuint uiVBOText;
 	GLuint uiIBOText;

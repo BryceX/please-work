@@ -116,7 +116,7 @@ int main()
 
 	
 
-	idHolder = charNode->IntAttribute("id");
+	
 
 
 	
@@ -134,9 +134,16 @@ int main()
 		characterMap[tempLetter.id] = tempLetter;
 
 		charNode = charNode->NextSiblingElement("char");
+
+
 	}
 
 	FontLetter letterA = characterMap['A'];
+	FontLetter letterB = characterMap['B'];
+	FontLetter letterC = characterMap['C'];
+	FontLetter letterD = characterMap['D'];
+
+
 
 
 	while (!glfwWindowShouldClose(myGlobals.window))
@@ -150,12 +157,12 @@ int main()
 
 
 
-		std::cout << idHolder << std::endl;
+		
 
 		//draw code goes here
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-		myShip.Move();
+		//myShip.Move();
 		myShip.Draw();
 
 		float textCursor[2] = { 310, 310 };
@@ -163,19 +170,20 @@ int main()
 		
 		for (int i = 0; i < 10; i++)
 		{
-
+			myText[i].GetLetterInfo(letterA.id, tempLetter.startX, tempLetter.startY, tempLetter.endX, tempLetter.endY, 50, 50);
 			myText[i].text[0].fPositions[0] = 310 + 10*i;// = 310;// + 10.0f * i;
 			myText[i].text[1].fPositions[0] = myText[i].text[0].fPositions[0] - 10;// = 310;// + 10.0f * i;
 			myText[i].text[2].fPositions[0] = myText[i].text[0].fPositions[0];// = 310;// + 10.0f * i;
-			myText[i].Draw();
+			myText[i].Draw(200,200);
 		}
 		animatedSprite.Draw();
-		myText[0].SetLetter(6);
+		animatedSprite.Move();
+		
 		switch (currentFrame)
 		{
 
 		case Frame0:
-			animatedSprite.text[0].fUVs[0] = 0.08f; //topright of the triangle
+			animatedSprite.text[0].fUVs[0] = 0.08f;
 			animatedSprite.text[0].fUVs[1] = 1.0f;
 
 			animatedSprite.text[2].fUVs[0] = 0.08f;//bottom right

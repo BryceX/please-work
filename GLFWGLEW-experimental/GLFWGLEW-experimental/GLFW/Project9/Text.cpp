@@ -11,25 +11,19 @@ Text::Text()
 	//
 	//
 	Globals& myGlobals = Globals::instance();
-	screenSize = 1;
-	offSet = 10.0f;
-	uvOffSet = offSet/1000;
-	trueOffSet = 1 / screenSize;
-	column = 0;
-	row = 0;
 	//put vertex info first
 	text = new Vertex[6];
-	text[0].fPositions[0] = myGlobals.screenSize / 2 + offSet;
+	text[0].fPositions[0] = 0;
 	//y position of the top corner
-	text[0].fPositions[1] = myGlobals.screenSize / 2 + offSet;
+	text[0].fPositions[1] = 0;
 	//x position of the left corner 
-	text[1].fPositions[0] = myGlobals.screenSize / 2 - offSet;
+	text[1].fPositions[0] = 0;
 	//y position of the left corner
-	text[1].fPositions[1] = myGlobals.screenSize / 2 - offSet;
+	text[1].fPositions[1] = 0;
 	//x position of the right corner
-	text[2].fPositions[0] = myGlobals.screenSize / 2 + offSet;
+	text[2].fPositions[0] = 0;
 	//y pos right corner
-	text[2].fPositions[1] = myGlobals.screenSize / 2 - offSet;
+	text[2].fPositions[1] = 0;
 
 	//opposite corner of the letter
 	
@@ -44,24 +38,24 @@ Text::Text()
 	}
 	//set up the UVs
 
-	text[0].fUVs[0] = 0.06f - uvOffSet; //topright of the triangle
-	text[0].fUVs[1] = 1.0f;
+	text[0].fUVs[0] = 0; //topright of the triangle
+	text[0].fUVs[1] = 0;
 
-	text[2].fUVs[0] = 0.06f - uvOffSet; //bottom right
-	text[2].fUVs[1] = 0.9475f;
+	text[2].fUVs[0] = 0; //bottom right
+	text[2].fUVs[1] = 0;
 
-	text[3].fUVs[0] = 0.06f - uvOffSet; //upper right
-	text[3].fUVs[1] = 1.0f;
+	text[3].fUVs[0] = 0; //upper right
+	text[3].fUVs[1] = 0;
 
 
-	text[1].fUVs[0] = 0.0f - uvOffSet; //bottom left
-	text[1].fUVs[1] = 0.9475f;
+	text[1].fUVs[0] = 0; //bottom left
+	text[1].fUVs[1] = 0;
 
-	text[4].fUVs[0] = 0.0f - uvOffSet; // bottom left corner
-	text[4].fUVs[1] = 0.9475f;
+	text[4].fUVs[0] = 0; // bottom left corner
+	text[4].fUVs[1] = 0;
 
-	text[5].fUVs[0] = 0.0f - uvOffSet; // upper left corner
-	text[5].fUVs[1] = 1.0f;
+	text[5].fUVs[0] = 0; // upper left corner
+	text[5].fUVs[1] = 0;
 	for (int i = 0; i < 6; i++)
 	{
 		for (int j = 0; j < 2; j++)
@@ -90,41 +84,65 @@ Text::Text()
 
 	// load the texture
 	int width = 50, height = 50, bpp = 4;
-	uiTextureId = myGlobals.loadTexture("Text.png", width, height, bpp);
+	uiTextureId = myGlobals.loadTexture("arial_0.png", width, height, bpp);
 
 
 }
-void Text::SetLetter(float a_ascii)
-{
-	this-> column = a_ascii;
-}
 
-void Text::GetLetterInfo(int id, float x, float y, float width, float height)
+
+void Text::GetLetterInfo(int id, float x1, float y1, float x2, float y2, float width, float height)
 {
 	this->id = id;
-	this->x = x;
-	this->y = y;
+	this->x1 = x1;
+	this->y1 = y1;
+	this->x2 = x2;
+	this->y2 = y2;
 	this->width = width;
 	this->height = height;
 
 }
 
-void Text::Draw()
+void Text::Draw(float xPos, float yPos)
 {
+	//must call GetLetterInfo before Drawing!!
+	this->xPos = xPos;
+	this->yPos = yPos;
 	Globals& myGlobals = Globals::instance();
 
-	while (column > 15)
-	{
-		row += 1;
-		column -= 15;
-	}
-	for (int i = 0; i < 6; i++)
-	{
-		text[i].fUVs[0] += 0.064f*column;
-		text[i].fUVs[1] -= 0.064f*row;
+	text[0].fUVs[0] = x2; //topright of the triangle
+	text[0].fUVs[1] = y2;
 
-	}
+	text[2].fUVs[0] = x2; //bottom right
+	text[2].fUVs[1] = y1;
 
+	text[3].fUVs[0] = x2; //upper right
+	text[3].fUVs[1] = y2;
+
+
+	text[1].fUVs[0] = x1; //bottom left
+	text[1].fUVs[1] = y1;
+
+	text[4].fUVs[0] = x1; // bottom left corner
+	text[4].fUVs[1] = y1;
+
+	text[5].fUVs[0] = x1; // upper left corner
+	text[5].fUVs[1] = y2;
+
+	
+	text[0].fPositions[0] = xPos + width/2;
+	//y position of the top right corner
+	text[0].fPositions[1] = yPos+height/2;
+	//x position of the left corner 
+	text[1].fPositions[0] = xPos-width/2;
+	//y position of the left corner
+	text[1].fPositions[1] = yPos-height/2;
+	//x position of the right corner
+	text[2].fPositions[0] = xPos+width/2;
+	//y pos right corner
+	text[2].fPositions[1] = yPos-height/2;
+
+	
+	//sets other half of triangle according to the first position
 	text[3].fPositions[0] = text[0].fPositions[0];
 	text[3].fPositions[1] = text[0].fPositions[1];
 	text[4].fPositions[0] = text[1].fPositions[0];

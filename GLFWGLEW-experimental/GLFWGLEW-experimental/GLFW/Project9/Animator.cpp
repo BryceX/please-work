@@ -162,7 +162,71 @@ void Animator::Draw()
 
 }
 
+void Animator::Move()
 
+{
+	Globals& myGlobals = Globals::instance();
+	if (glfwGetKey(myGlobals.window, GLFW_KEY_W) == GLFW_PRESS)
+	{
+		//move forward
+		for (int i = 0; i < 6; i++)
+		{
+			text[i].fPositions[1] += myGlobals.screenSize*.01f;
+		}
+		glBindBuffer(GL_ARRAY_BUFFER, uiVBOText);
+		GLvoid* vBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+		//copy data to graphics card
+		memcpy(vBuffer, text, sizeof(Vertex) * 6);
+		//unmap and unbind buffer
+		glUnmapBuffer(GL_ARRAY_BUFFER);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+	if (glfwGetKey(myGlobals.window, GLFW_KEY_S) == GLFW_PRESS)
+	{
+		//move forward
+		for (int i = 0; i < 6; i++)
+		{
+			text[i].fPositions[1] -= myGlobals.screenSize*.01f;
+		}
+		glBindBuffer(GL_ARRAY_BUFFER, uiVBOText);
+		GLvoid* vBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+		//copy data to graphics card
+		memcpy(vBuffer, text, sizeof(Vertex) * 6);
+		//unmap and unbind buffer
+		glUnmapBuffer(GL_ARRAY_BUFFER);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+	if (glfwGetKey(myGlobals.window, GLFW_KEY_D) == GLFW_PRESS)
+	{
+		//move forward
+		for (int i = 0; i < 6; i++)
+		{
+			text[i].fPositions[0] += myGlobals.screenSize*.01f;
+		}
+		glBindBuffer(GL_ARRAY_BUFFER, uiVBOText);
+		GLvoid* vBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+		//copy data to graphics card
+		memcpy(vBuffer, text, sizeof(Vertex) * 6);
+		//unmap and unbind buffer
+		glUnmapBuffer(GL_ARRAY_BUFFER);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+	if (glfwGetKey(myGlobals.window, GLFW_KEY_A) == GLFW_PRESS)
+	{
+		//move forward
+		for (int i = 0; i < 6; i++)
+		{
+			text[i].fPositions[0] -= myGlobals.screenSize*.01f;
+		}
+		glBindBuffer(GL_ARRAY_BUFFER, uiVBOText);
+		GLvoid* vBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
+		//copy data to graphics card
+		memcpy(vBuffer, text, sizeof(Vertex) * 6);
+		//unmap and unbind buffer
+		glUnmapBuffer(GL_ARRAY_BUFFER);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
+}
 
 
 

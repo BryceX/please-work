@@ -8,27 +8,23 @@
 class Text
 {
 public:
-	void Draw();
+	void Draw(float xPos, float yPos);
+	float xPos;
+	float yPos;
 	Vertex* text;
 	GLuint uiVBOText;
 	GLuint uiIBOText;
 	GLuint  uiProgramTextured;
 	GLuint  uiTextureId;
-
-	void SetLetter(float a_ascii);
-	float screenSize;
-	float offSet;
-	float uvOffSet;
-	float trueOffSet;
-	int column;
-	int row;
-	void GetLetterInfo(int id, float x, float y, float width, float height);
+	void GetLetterInfo(int id, float x1, float y1,float x2, float y2, float width, float height);
 
 	int id;
-	int x;
-	int y;
-	int width;
-	int height;
+	float x1;
+	float y1;
+	float x2;
+	float y2;
+	float width;
+	float height;
 
 
 

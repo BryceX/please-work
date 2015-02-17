@@ -43,9 +43,7 @@ Player::Player()
 	// make the shaders
 	uiProgramTextured = myGlobals.CreateProgram("VertexShader.glsl", "TexturedFragmentShader.glsl");
 
-	// load the texture
-	int width = 50, height = 40, bpp = 4; 
-	uiTextureId = myGlobals.loadTexture("zeroprofile.jpg", width, height, bpp);
+	
 }
 
 Player::Player(const char * texturePath)
@@ -176,7 +174,7 @@ void Player::Move()
 		//move forward
 		for (int i = 0; i < 3; i++)
 		{
-			playerShip[i].fPositions[1] += myGlobals.screenSize*.0001f;
+			playerShip[i].fPositions[1] += myGlobals.screenSize*.01f;
 		}
 		glBindBuffer(GL_ARRAY_BUFFER, uiVBOplayerShip);
 		GLvoid* vBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
@@ -191,7 +189,7 @@ void Player::Move()
 		//move forward
 		for (int i = 0; i < 3; i++)
 		{
-			playerShip[i].fPositions[1] -= myGlobals.screenSize*.0001f;
+			playerShip[i].fPositions[1] -= myGlobals.screenSize*.01f;
 		}
 		glBindBuffer(GL_ARRAY_BUFFER, uiVBOplayerShip);
 		GLvoid* vBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
@@ -206,7 +204,7 @@ void Player::Move()
 		//move forward
 		for (int i = 0; i < 3; i++)
 		{
-			playerShip[i].fPositions[0] += myGlobals.screenSize*.0001f;
+			playerShip[i].fPositions[0] += myGlobals.screenSize*.01f;
 		}
 		glBindBuffer(GL_ARRAY_BUFFER, uiVBOplayerShip);
 		GLvoid* vBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
@@ -221,7 +219,7 @@ void Player::Move()
 		//move forward
 		for (int i = 0; i < 3; i++)
 		{
-			playerShip[i].fPositions[0] -= myGlobals.screenSize*.0001f;
+			playerShip[i].fPositions[0] -= myGlobals.screenSize*.01f;
 		}
 		glBindBuffer(GL_ARRAY_BUFFER, uiVBOplayerShip);
 		GLvoid* vBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
