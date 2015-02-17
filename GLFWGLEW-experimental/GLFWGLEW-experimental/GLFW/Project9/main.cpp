@@ -13,7 +13,6 @@
 #include "Asteroids.h"
 #include "Stars.h"
 #include "Text.h"
-#include "tinyxml2.h"
 #include "Animator.h"
 #include <fstream>
 
@@ -26,14 +25,7 @@ float timeSinceLastFrame = 0;
 float currentTime = glfwGetTime();
 float lastFrame = currentTime;
 
-struct FontLetter
-{
-	int id;
-	int startX;
-	int startY;
-	int endX;
-	int endY;
-};
+
 
 void GetDeltaTime()
 {
@@ -71,7 +63,7 @@ int main()
 		return -1;
 	}
 	//Initialise GLFW
-	Player myShip("zeroprofile.jpg");
+	Player myShip("sample.jpg");
 	Stars myStars[50];
 	Text myText[10];
 	
@@ -98,56 +90,14 @@ int main()
 	//set up the mapping of the screen to pixel co-ordinates. Try changing these values to see what happens.
 	//loop until the user closes the window
 
-	std::map<int, FontLetter> characterMap;
-
-	tinyxml2::XMLDocument arialFont;
-	arialFont.LoadFile("arial.fnt");
-	tinyxml2::XMLElement *rootNode = arialFont.FirstChildElement("font");
-	tinyxml2::XMLElement *currentNode = rootNode->FirstChildElement("chars");
-	tinyxml2::XMLElement *charNode = currentNode->FirstChildElement("char");
-
-	int idHolder = charNode->IntAttribute("id");
-
-	FontLetter tempLetter = FontLetter();
-	//for (int i = 0; i < 191; i++)
 	
 
-	
-
-	
-
-	
-
-
-	
-
-
-	while (charNode != nullptr)
-	{
-		tempLetter.id = charNode->IntAttribute("id");
-		tempLetter.startX = charNode->IntAttribute("x");
-		tempLetter.startY = charNode->IntAttribute("y");
-		tempLetter.endX = tempLetter.startX + charNode->IntAttribute("width");
-		tempLetter.endY = tempLetter.startY + charNode->IntAttribute("height");
-		std::cout << tempLetter.id << std::endl;
-		
-		characterMap[tempLetter.id] = tempLetter;
-
-		charNode = charNode->NextSiblingElement("char");
-
-
-	}
-
-	FontLetter letterA = characterMap['A'];
-	FontLetter letterB = characterMap['B'];
-	FontLetter letterC = characterMap['C'];
-	FontLetter letterD = characterMap['D'];
-
-
-
+	Text bbyPlz;
 
 	while (!glfwWindowShouldClose(myGlobals.window))
 	{
+		glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
 		//GetDeltaTime();
 		animatedSprite.FrameHandler += deltaTime;
 
@@ -155,27 +105,22 @@ int main()
 		deltaTime = currentTime - lastFrame;
 		lastFrame = currentTime;
 
-
-
-		
-
 		//draw code goes here
-		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		
 		//myShip.Move();
 		myShip.Draw();
-
-		float textCursor[2] = { 310, 310 };
-
 		
-		for (int i = 0; i < 10; i++)
+
+		bbyPlz.Draw(300.f, 300.f, std::string("nep nep"));
+		
+		/*for (int i = 0; i < 10; i++)
 		{
 			myText[i].GetLetterInfo(letterA.id, tempLetter.startX, tempLetter.startY, tempLetter.endX, tempLetter.endY, 50, 50);
 			myText[i].text[0].fPositions[0] = 310 + 10*i;// = 310;// + 10.0f * i;
 			myText[i].text[1].fPositions[0] = myText[i].text[0].fPositions[0] - 10;// = 310;// + 10.0f * i;
 			myText[i].text[2].fPositions[0] = myText[i].text[0].fPositions[0];// = 310;// + 10.0f * i;
 			myText[i].Draw(200,200);
-		}
+		}*/
 		animatedSprite.Draw();
 		animatedSprite.Move();
 		

@@ -86,60 +86,74 @@ Text::Text()
 	int width = 50, height = 50, bpp = 4;
 	uiTextureId = myGlobals.loadTexture("arial_0.png", width, height, bpp);
 
+	tinyxml2::XMLDocument arialFont;
+	arialFont.LoadFile("arial.fnt");
+	tinyxml2::XMLElement *rootNode = arialFont.FirstChildElement("font");
+	tinyxml2::XMLElement *currentNode = rootNode->FirstChildElement("chars");
+	tinyxml2::XMLElement *charNode = currentNode->FirstChildElement("char");
 
+	int idHolder = charNode->IntAttribute("id");
+
+	FontLetter tempLetter = FontLetter();
+	//for (int i = 0; i < 191; i++)
+
+	while (charNode != nullptr)
+	{
+		tempLetter.id = charNode->IntAttribute("id");
+		tempLetter.startX = charNode->IntAttribute("x");
+		tempLetter.startY = 256 - charNode->IntAttribute("y");
+		tempLetter.endX = tempLetter.startX + charNode->IntAttribute("width");
+		tempLetter.endY = tempLetter.startY - charNode->IntAttribute("height");
+		tempLetter.width = tempLetter.endX - tempLetter.startX;
+		tempLetter.height = tempLetter.endY - tempLetter.startY;
+
+		characterMap[tempLetter.id] = tempLetter;
+
+		charNode = charNode->NextSiblingElement("char");
+	}
 }
 
-
-void Text::GetLetterInfo(int id, float x1, float y1, float x2, float y2, float width, float height)
-{
-	this->id = id;
-	this->x1 = x1;
-	this->y1 = y1;
-	this->x2 = x2;
-	this->y2 = y2;
-	this->width = width;
-	this->height = height;
-
-}
-
-void Text::Draw(float xPos, float yPos)
+void Text::Draw(float xPos, float yPos, char theLetter)
 {
 	//must call GetLetterInfo before Drawing!!
 	this->xPos = xPos;
 	this->yPos = yPos;
 	Globals& myGlobals = Globals::instance();
 
-	text[0].fUVs[0] = x2; //topright of the triangle
-	text[0].fUVs[1] = y2;
-
-	text[2].fUVs[0] = x2; //bottom right
-	text[2].fUVs[1] = y1;
-
-	text[3].fUVs[0] = x2; //upper right
-	text[3].fUVs[1] = y2;
+	FontLetter letter = characterMap[theLetter];
 
 
-	text[1].fUVs[0] = x1; //bottom left
-	text[1].fUVs[1] = y1;
+	text[0].fUVs[0] = letter.endX / 256; //topright of the triangle
+	text[0].fUVs[1] = letter.endY / 256;
 
-	text[4].fUVs[0] = x1; // bottom left corner
-	text[4].fUVs[1] = y1;
+	text[2].fUVs[0] = letter.endX / 256; //bottom right
+	text[2].fUVs[1] = letter.startY / 256;
 
-	text[5].fUVs[0] = x1; // upper left corner
-	text[5].fUVs[1] = y2;
+	text[3].fUVs[0] = letter.endX / 256; //upper right
+	text[3].fUVs[1] = letter.endY / 256;
+
+
+	text[1].fUVs[0] = letter.startX / 256; //bottom left
+	text[1].fUVs[1] = letter.startY / 256;
+
+	text[4].fUVs[0] = letter.startX / 256; // bottom left corner
+	text[4].fUVs[1] = letter.startY / 256;
+
+	text[5].fUVs[0] = letter.startX / 256; // upper left corner
+	text[5].fUVs[1] = letter.endY / 256;
 
 	
-	text[0].fPositions[0] = xPos + width/2;
+	text[0].fPositions[0] = xPos + letter.width/2;
 	//y position of the top right corner
-	text[0].fPositions[1] = yPos+height/2;
+	text[0].fPositions[1] = yPos+letter.height/2;
 	//x position of the left corner 
-	text[1].fPositions[0] = xPos-width/2;
+	text[1].fPositions[0] = xPos-letter.width/2;
 	//y position of the left corner
-	text[1].fPositions[1] = yPos-height/2;
+	text[1].fPositions[1] = yPos-letter.height/2;
 	//x position of the right corner
-	text[2].fPositions[0] = xPos+width/2;
+	text[2].fPositions[0] = xPos+letter.width/2;
 	//y pos right corner
-	text[2].fPositions[1] = yPos-height/2;
+	text[2].fPositions[1] = yPos-letter.height/2;
 
 	
 	//sets other half of triangle according to the first position
@@ -223,7 +237,14 @@ void Text::Draw(float xPos, float yPos)
 
 }
 
-
+void Text::Draw(float xPos, float yPos, std::string sentence)
+{
+	for (int i = 0; i < sentence.length(); i++)
+	{
+		Draw(xPos, yPos, sentence[i]);
+		xPos += characterMap[sentence[i]].width;
+	}
+}
 
 
 
