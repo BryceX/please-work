@@ -8,24 +8,19 @@
 class Animator
 {
 public:
-	void Draw();
+	void Draw(float x, float y, float width, float height, int frames, float deltaTime);
 	void Move();
 	Vertex* sprite;
 	GLuint uiVBOText;
 	GLuint uiIBOText;
 	GLuint  uiProgramTextured;
 	GLuint  uiTextureId;
-	void SetSize(float a_ScreenSize);
-	float xPos;
-	float yPos;
-	float frames;
-	float width;
-	float height;
 	
+	bool isAnimated = true;
 	float FrameHandler;
 
 
 	Animator();
-
+	Animator(const char * texturePath);
 	~Animator();
 };

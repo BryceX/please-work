@@ -1,4 +1,4 @@
-This is a small game engine in C++ using the OpenGL framework capable of animating sprites, displaying text, and accepting key input to move them across the screen.
+ This is a small game engine in C++ using the OpenGL framework capable of animating sprites, displaying text, and accepting key input to move them across the screen.
 
 Text
 Draw(float xPosition, float yPosition, char);

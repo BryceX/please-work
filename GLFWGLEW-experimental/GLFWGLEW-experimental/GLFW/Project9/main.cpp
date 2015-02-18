@@ -68,7 +68,7 @@ int main()
 	Text myText[10];
 	
 	Asteroids myAsteroids[10];
-	Animator animatedSprite;
+	Animator test("mario.jpg"); 
 
 	
 	
@@ -85,14 +85,14 @@ int main()
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		//GetDeltaTime();
-		animatedSprite.FrameHandler += deltaTime;
+	
 
 		currentTime = glfwGetTime();
 		deltaTime = currentTime - lastFrame;
 		lastFrame = currentTime;
 
 		
-		
+		test.Draw(300, 300, 50, 50, 12, deltaTime);
 		//myShip.Move();
 		myShip.Draw();
 		
