@@ -2,49 +2,7 @@
 
 
 
-Player::Player()
-{
-	Globals& myGlobals = Globals::instance();
 
-	//put vertex info first
-	playerShip = new Vertex[3];
-	playerShip[0].fPositions[0] = myGlobals.screenSize / 2;
-	//y position of the top corner
-	playerShip[0].fPositions[1] = (myGlobals.screenSize / 2) + 30.0f;
-	//x position of the left corner 
-	playerShip[1].fPositions[0] = (myGlobals.screenSize / 2) - 30.0f;
-	//y position of the left corner
-	playerShip[1].fPositions[1] = (myGlobals.screenSize / 2) - 30.0f;
-	//x position of the right corner
-	playerShip[2].fPositions[0] = (myGlobals.screenSize / 2) + 30.0f;
-	//y pos right corner
-	playerShip[2].fPositions[1] = (myGlobals.screenSize / 2) - 30.0f;
-	for (int i = 0; i < 3; i++)
-	{
-		playerShip[i].fPositions[2] = 0.0f;
-		playerShip[i].fPositions[3] = 1.0f;
-		playerShip[i].fColours[0] = 1.0f;
-		playerShip[i].fColours[1] = 1.0f;
-		playerShip[i].fColours[2] = 0.0f;
-		playerShip[i].fColours[3] = 1.0f;
-	}
-	//set up the UVs
-	playerShip[0].fUVs[0] = 0.5f; //top of the triangle
-	playerShip[0].fUVs[1] = 1.0f;
-	playerShip[1].fUVs[0] = 0.0f; //bottom left
-	playerShip[1].fUVs[1] = 0.0f;
-	playerShip[2].fUVs[0] = 1.0f; //bottom right
-	playerShip[2].fUVs[1] = 0.0f;
-
-	//making buffers
-	glGenBuffers(1, &uiVBOplayerShip);	// VBO
-	glGenBuffers(1, &uiIBOplayerShip);	// IBO
-
-	// make the shaders
-	uiProgramTextured = myGlobals.CreateProgram("VertexShader.glsl", "TexturedFragmentShader.glsl");
-
-	
-}
 
 Player::Player(const char * texturePath)
 {

@@ -105,13 +105,8 @@ int main()
 		
 		
 
-			/*{
-				myText[i].Draw();
-				for (int j = 0; j < 6; j++)
-				{
-				myText[j].fPositions[0]
-				}*/
-		}
+			
+		
 
 		for (int i = 0; i < 10; i++)
 		{

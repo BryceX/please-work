@@ -26,5 +26,6 @@ public:
 
 
 	Animator();
+
 	~Animator();
 };

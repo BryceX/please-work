@@ -462,7 +462,7 @@ void Animator::Draw()
 		//get pointer to allocated space on the graphics card
 		GLvoid* vBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 		//copy data to graphics card
-		memcpy(vBuffer, text, sizeof(Vertex)* 6);
+		memcpy(vBuffer, sprite, sizeof(Vertex)* 6);
 		//unmap and unbind buffer
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -482,12 +482,12 @@ void Animator::Move()
 		//move forward
 		for (int i = 0; i < 6; i++)
 		{
-			text[i].fPositions[1] += myGlobals.screenSize*.01f;
+			sprite[i].fPositions[1] += myGlobals.screenSize*.01f;
 		}
 		glBindBuffer(GL_ARRAY_BUFFER, uiVBOText);
 		GLvoid* vBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 		//copy data to graphics card
-		memcpy(vBuffer, text, sizeof(Vertex) * 6);
+		memcpy(vBuffer, sprite, sizeof(Vertex)* 6);
 		//unmap and unbind buffer
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -497,12 +497,12 @@ void Animator::Move()
 		//move forward
 		for (int i = 0; i < 6; i++)
 		{
-			text[i].fPositions[1] -= myGlobals.screenSize*.01f;
+			sprite[i].fPositions[1] -= myGlobals.screenSize*.01f;
 		}
 		glBindBuffer(GL_ARRAY_BUFFER, uiVBOText);
 		GLvoid* vBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 		//copy data to graphics card
-		memcpy(vBuffer, text, sizeof(Vertex) * 6);
+		memcpy(vBuffer, sprite, sizeof(Vertex)* 6);
 		//unmap and unbind buffer
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -512,12 +512,12 @@ void Animator::Move()
 		//move forward
 		for (int i = 0; i < 6; i++)
 		{
-			text[i].fPositions[0] += myGlobals.screenSize*.01f;
+			sprite[i].fPositions[0] += myGlobals.screenSize*.01f;
 		}
 		glBindBuffer(GL_ARRAY_BUFFER, uiVBOText);
 		GLvoid* vBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 		//copy data to graphics card
-		memcpy(vBuffer, text, sizeof(Vertex) * 6);
+		memcpy(vBuffer, sprite, sizeof(Vertex)* 6);
 		//unmap and unbind buffer
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -527,12 +527,12 @@ void Animator::Move()
 		//move forward
 		for (int i = 0; i < 6; i++)
 		{
-			text[i].fPositions[0] -= myGlobals.screenSize*.01f;
+			sprite[i].fPositions[0] -= myGlobals.screenSize*.01f;
 		}
 		glBindBuffer(GL_ARRAY_BUFFER, uiVBOText);
 		GLvoid* vBuffer = glMapBuffer(GL_ARRAY_BUFFER, GL_WRITE_ONLY);
 		//copy data to graphics card
-		memcpy(vBuffer, text, sizeof(Vertex) * 6);
+		memcpy(vBuffer, sprite, sizeof(Vertex)* 6);
 		//unmap and unbind buffer
 		glUnmapBuffer(GL_ARRAY_BUFFER);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -543,5 +543,5 @@ void Animator::Move()
 
 Animator::~Animator()
 {
-	delete text;
+	delete sprite;
 }
