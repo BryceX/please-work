@@ -106,6 +106,8 @@ Text::Text()
 		tempLetter.endY = tempLetter.startY - charNode->IntAttribute("height");
 		tempLetter.width = tempLetter.endX - tempLetter.startX;
 		tempLetter.height = tempLetter.endY - tempLetter.startY;
+		tempLetter.xOffset = charNode->IntAttribute("xoffset");
+		tempLetter.yOffset = charNode->IntAttribute("yoffset");
 
 		characterMap[tempLetter.id] = tempLetter;
 
@@ -116,8 +118,8 @@ Text::Text()
 void Text::Draw(float xPos, float yPos, char theLetter)
 {
 	//must call GetLetterInfo before Drawing!!
-	this->xPos = xPos;
-	this->yPos = yPos;
+	this->xPosi = xPos;
+	this->yPosi = yPos;
 	Globals& myGlobals = Globals::instance();
 
 	FontLetter letter = characterMap[theLetter];
@@ -131,7 +133,6 @@ void Text::Draw(float xPos, float yPos, char theLetter)
 
 	text[3].fUVs[0] = letter.endX / 256; //upper right
 	text[3].fUVs[1] = letter.endY / 256;
-
 
 	text[1].fUVs[0] = letter.startX / 256; //bottom left
 	text[1].fUVs[1] = letter.startY / 256;
@@ -241,11 +242,31 @@ void Text::Draw(float xPos, float yPos, std::string sentence)
 {
 	for (int i = 0; i < sentence.length(); i++)
 	{
-		Draw(xPos, yPos, sentence[i]);
-		xPos += characterMap[sentence[i]].width;
+		Draw(xPos, yPos - (characterMap[sentence[i]].yOffset)*.5 , sentence[i]);
+		if (i < sentence.length())
+		{
+			xPos += (characterMap[sentence[i]].width/2);
+			xPos += (characterMap[sentence[i + 1]].width / 2);
+			
+			
+		}
+
+		
 	}
 }
 
+void Text::DrawNoOffSets(float xPos, float yPos, std::string sentence)
+{
+	for (int i = 0; i < sentence.length(); i++)
+	{
+		Draw(xPos, yPos, sentence[i]);
+		if (i < sentence.length())
+		{
+			xPos += (characterMap[sentence[i]].width / 2);
+			xPos += (characterMap[sentence[i + 1]].width / 2);
+		}
+	}
+}
 
 
 Text::~Text()

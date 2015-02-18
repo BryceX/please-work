@@ -10,18 +10,20 @@ class Animator
 public:
 	void Draw();
 	void Move();
-	Vertex* text;
+	Vertex* sprite;
 	GLuint uiVBOText;
 	GLuint uiIBOText;
 	GLuint  uiProgramTextured;
 	GLuint  uiTextureId;
 	void SetSize(float a_ScreenSize);
-	float screenSize;
-	float offSet;
-	float uvOffSet;
-	float trueOffSet;
-	float FrameHandler;
+	float xPos;
+	float yPos;
+	float frames;
+	float width;
+	float height;
 	
+	float FrameHandler;
+
 
 	Animator();
 	~Animator();

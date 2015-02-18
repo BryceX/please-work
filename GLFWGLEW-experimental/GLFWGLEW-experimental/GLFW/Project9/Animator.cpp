@@ -11,50 +11,43 @@ Animator::Animator()
 	//
 	//
 	Globals& myGlobals = Globals::instance();
-	screenSize = 1;
-	offSet = 100.0f;
-	uvOffSet = offSet / 10000.0f;
-	trueOffSet = 1 / screenSize;
+	
 	FrameHandler = 0;
 	
 	//put vertex info first
-	text = new Vertex[6];
+	sprite = new Vertex[6];
 	//x pos of top right corner
-	text[0].fPositions[0] = myGlobals.screenSize / 1.5 + offSet;
+	sprite[0].fPositions[0] = 0;
 	//y position of the top corner
-	text[0].fPositions[1] = myGlobals.screenSize / 1.5 + offSet;
-	
-	
-	
+	sprite[0].fPositions[1] = 0;
 	//x position of the left corner 
-	text[1].fPositions[0] = myGlobals.screenSize / 1.5 - offSet;
+	sprite[1].fPositions[0] = 0;
 	//y position of the left corner
-	text[1].fPositions[1] = myGlobals.screenSize / 1.5 - offSet;
-
-
-
+	sprite[1].fPositions[1] = 0;
 	//x position of the right corner
-	text[2].fPositions[0] = myGlobals.screenSize / 1.5 + offSet;
+	sprite[2].fPositions[0] = 0;
 	//y pos right corner
-	text[2].fPositions[1] = myGlobals.screenSize / 1.5 - offSet;
+	sprite[2].fPositions[1] = 0;
+
+
 
 	//opposite corner of the letter
-	text[3].fPositions[0] = text[0].fPositions[0];
-	text[3].fPositions[1] = text[0].fPositions[1];
+	sprite[3].fPositions[0] = sprite[0].fPositions[0];
+	sprite[3].fPositions[1] = sprite[0].fPositions[1];
 
-	text[4].fPositions[0] = text[1].fPositions[0];
-	text[4].fPositions[1] = text[1].fPositions[1];
+	sprite[4].fPositions[0] = sprite[1].fPositions[0];
+	sprite[4].fPositions[1] = sprite[1].fPositions[1];
 
-	text[5].fPositions[0] = text[1].fPositions[0];
-	text[5].fPositions[1] = text[0].fPositions[1];
+	sprite[5].fPositions[0] = sprite[1].fPositions[0];
+	sprite[5].fPositions[1] = sprite[0].fPositions[1];
 	for (int i = 0; i < 6; i++)
 	{
-		text[i].fPositions[2] = 0.0f;
-		text[i].fPositions[3] = 1.0f;
-		text[i].fColours[0] = 1.0f;
-		text[i].fColours[1] = 1.0f;
-		text[i].fColours[2] = 1.0f;
-		text[i].fColours[3] = 1.0f;
+		sprite[i].fPositions[2] = 0.0f;
+		sprite[i].fPositions[3] = 1.0f;
+		sprite[i].fColours[0] = 1.0f;
+		sprite[i].fColours[1] = 1.0f;
+		sprite[i].fColours[2] = 1.0f;
+		sprite[i].fColours[3] = 1.0f;
 	}
 	
 
@@ -85,6 +78,324 @@ void Animator::Draw()
 {
 	Globals& myGlobals = Globals::instance();
 	
+	
+		sprite[0].fUVs[0] = 0.08f;
+		sprite[0].fUVs[1] = 1.0f;
+
+		sprite[2].fUVs[0] = 0.08f;//bottom right
+		sprite[2].fUVs[1] = 0.00f;
+
+		sprite[3].fUVs[0] = 0.08f; //upper right
+		sprite[3].fUVs[1] = 1.0f;
+
+		sprite[1].fUVs[0] = 0.0f; //bottom left
+		sprite[1].fUVs[1] = 0.0f;
+
+		sprite[4].fUVs[0] = 0.0f; // bottom left corner
+		sprite[4].fUVs[1] = 0.0f;
+
+		sprite[5].fUVs[0] = 0.0f; // upper left corner
+		sprite[5].fUVs[1] = 1.0f;
+		if (FrameHandler > 0.1)
+		{
+			FrameHandler = 0;
+		}
+	
+		/*
+	case Frame1:
+
+		animatedSprite.text[0].fUVs[0] = 0.16f; //topright of the triangle
+		animatedSprite.text[0].fUVs[1] = 1.0f;
+
+		animatedSprite.text[2].fUVs[0] = 0.16f; //bottom right
+		animatedSprite.text[2].fUVs[1] = 0.00f;
+
+		animatedSprite.text[3].fUVs[0] = 0.16f; //upper right
+		animatedSprite.text[3].fUVs[1] = 1.0f;
+
+		animatedSprite.text[1].fUVs[0] = 0.08f; //bottom left
+		animatedSprite.text[1].fUVs[1] = 0.0f;
+
+		animatedSprite.text[4].fUVs[0] = 0.08f; // bottom left corner
+		animatedSprite.text[4].fUVs[1] = 0.0f;
+
+		animatedSprite.text[5].fUVs[0] = 0.08f; // upper left corner
+		animatedSprite.text[5].fUVs[1] = 1.0f;
+		if (animatedSprite.FrameHandler > 0.1)
+		{
+			currentFrame = Frame2;
+			animatedSprite.FrameHandler = 0;
+		}
+		break;
+
+	case Frame2:
+
+		animatedSprite.text[0].fUVs[0] = 0.24f; //topright of the triangle
+		animatedSprite.text[0].fUVs[1] = 1.0f;
+
+		animatedSprite.text[2].fUVs[0] = 0.24f; //bottom right
+		animatedSprite.text[2].fUVs[1] = 0.00f;
+
+		animatedSprite.text[3].fUVs[0] = 0.24f; //upper right
+		animatedSprite.text[3].fUVs[1] = 1.0f;
+
+		animatedSprite.text[1].fUVs[0] = 0.16f; //bottom left
+		animatedSprite.text[1].fUVs[1] = 0.0f;
+
+		animatedSprite.text[4].fUVs[0] = 0.16f; // bottom left corner
+		animatedSprite.text[4].fUVs[1] = 0.0f;
+
+		animatedSprite.text[5].fUVs[0] = 0.16f; // upper left corner
+		animatedSprite.text[5].fUVs[1] = 1.0f;
+
+		if (animatedSprite.FrameHandler > 0.1)
+		{
+			currentFrame = Frame3;
+			animatedSprite.FrameHandler = 0;
+
+		}
+		break;
+
+	case Frame3:
+
+		animatedSprite.text[0].fUVs[0] = 0.33f; //topright of the triangle
+		animatedSprite.text[0].fUVs[1] = 1.0f;
+
+		animatedSprite.text[2].fUVs[0] = 0.33f; //bottom right
+		animatedSprite.text[2].fUVs[1] = 0.00f;
+
+		animatedSprite.text[3].fUVs[0] = 0.33f; //upper right
+		animatedSprite.text[3].fUVs[1] = 1.0f;
+
+		animatedSprite.text[1].fUVs[0] = 0.25f; //bottom left
+		animatedSprite.text[1].fUVs[1] = 0.0f;
+
+		animatedSprite.text[4].fUVs[0] = 0.25f; // bottom left corner
+		animatedSprite.text[4].fUVs[1] = 0.0f;
+
+		animatedSprite.text[5].fUVs[0] = 0.25f; // upper left corner
+		animatedSprite.text[5].fUVs[1] = 1.0f;
+		if (animatedSprite.FrameHandler > 0.1)
+		{
+			currentFrame = Frame4;
+			animatedSprite.FrameHandler = 0;
+
+		}
+		break;
+
+	case Frame4:
+		animatedSprite.text[0].fUVs[0] = 0.42f; //topright of the triangle
+		animatedSprite.text[0].fUVs[1] = 1.0f;
+
+		animatedSprite.text[2].fUVs[0] = 0.42f; //bottom right
+		animatedSprite.text[2].fUVs[1] = 0.00f;
+
+		animatedSprite.text[3].fUVs[0] = 0.42f; //upper right
+		animatedSprite.text[3].fUVs[1] = 1.0f;
+
+		animatedSprite.text[1].fUVs[0] = 0.34f; //bottom left
+		animatedSprite.text[1].fUVs[1] = 0.0f;
+
+		animatedSprite.text[4].fUVs[0] = 0.34f; // bottom left corner
+		animatedSprite.text[4].fUVs[1] = 0.0f;
+
+		animatedSprite.text[5].fUVs[0] = 0.34f; // upper left corner
+		animatedSprite.text[5].fUVs[1] = 1.0f;
+		if (animatedSprite.FrameHandler > 0.1)
+		{
+			currentFrame = Frame5;
+			animatedSprite.FrameHandler = 0;
+
+		}
+		break;
+
+	case Frame5:
+
+		animatedSprite.text[0].fUVs[0] = 0.5f; //topright of the triangle
+		animatedSprite.text[0].fUVs[1] = 1.0f;
+
+		animatedSprite.text[2].fUVs[0] = 0.5f; //bottom right
+		animatedSprite.text[2].fUVs[1] = 0.00f;
+
+		animatedSprite.text[3].fUVs[0] = 0.5f; //upper right
+		animatedSprite.text[3].fUVs[1] = 1.0f;
+
+		animatedSprite.text[1].fUVs[0] = 0.425f; //bottom left
+		animatedSprite.text[1].fUVs[1] = 0.0f;
+
+		animatedSprite.text[4].fUVs[0] = 0.425f; // bottom left corner
+		animatedSprite.text[4].fUVs[1] = 0.0f;
+
+		animatedSprite.text[5].fUVs[0] = 0.425f; // upper left corner
+		animatedSprite.text[5].fUVs[1] = 1.0f;
+		if (animatedSprite.FrameHandler > 0.1)
+		{
+			currentFrame = Frame6;
+			animatedSprite.FrameHandler = 0;
+
+		}
+		break;
+
+	case Frame6:
+
+		animatedSprite.text[0].fUVs[0] = 0.58f; //topright of the triangle
+		animatedSprite.text[0].fUVs[1] = 1.0f;
+
+		animatedSprite.text[2].fUVs[0] = 0.58f; //bottom right
+		animatedSprite.text[2].fUVs[1] = 0.00f;
+
+		animatedSprite.text[3].fUVs[0] = 0.58f; //upper right
+		animatedSprite.text[3].fUVs[1] = 1.0f;
+
+		animatedSprite.text[1].fUVs[0] = 0.5f; //bottom left
+		animatedSprite.text[1].fUVs[1] = 0.0f;
+
+		animatedSprite.text[4].fUVs[0] = 0.5f; // bottom left corner
+		animatedSprite.text[4].fUVs[1] = 0.0f;
+
+		animatedSprite.text[5].fUVs[0] = 0.5f; // upper left corner
+		animatedSprite.text[5].fUVs[1] = 1.0f;
+		if (animatedSprite.FrameHandler > 0.1)
+		{
+			currentFrame = Frame7;
+			animatedSprite.FrameHandler = 0;
+
+		}
+		break;
+
+	case Frame7:
+
+		animatedSprite.text[0].fUVs[0] = 0.66f; //topright of the triangle
+		animatedSprite.text[0].fUVs[1] = 1.0f;
+
+		animatedSprite.text[2].fUVs[0] = 0.66f; //bottom right
+		animatedSprite.text[2].fUVs[1] = 0.00f;
+
+		animatedSprite.text[3].fUVs[0] = 0.66f; //upper right
+		animatedSprite.text[3].fUVs[1] = 1.0f;
+
+		animatedSprite.text[1].fUVs[0] = 0.58f; //bottom left
+		animatedSprite.text[1].fUVs[1] = 0.0f;
+
+		animatedSprite.text[4].fUVs[0] = 0.58f; // bottom left corner
+		animatedSprite.text[4].fUVs[1] = 0.0f;
+
+		animatedSprite.text[5].fUVs[0] = 0.58f; // upper left corner
+		animatedSprite.text[5].fUVs[1] = 1.0f;
+
+		if (animatedSprite.FrameHandler > 0.1)
+		{
+			currentFrame = Frame8;
+			animatedSprite.FrameHandler = 0;
+
+		}
+		break;
+
+	case Frame8:
+
+		animatedSprite.text[0].fUVs[0] = 0.74f; //topright of the triangle
+		animatedSprite.text[0].fUVs[1] = 1.0f;
+
+		animatedSprite.text[2].fUVs[0] = 0.74f; //bottom right
+		animatedSprite.text[2].fUVs[1] = 0.00f;
+
+		animatedSprite.text[3].fUVs[0] = 0.74f; //upper right
+		animatedSprite.text[3].fUVs[1] = 1.0f;
+
+		animatedSprite.text[1].fUVs[0] = 0.66f; //bottom left
+		animatedSprite.text[1].fUVs[1] = 0.0f;
+
+		animatedSprite.text[4].fUVs[0] = 0.66f; // bottom left corner
+		animatedSprite.text[4].fUVs[1] = 0.0f;
+
+		animatedSprite.text[5].fUVs[0] = 0.66f; // upper left corner
+		animatedSprite.text[5].fUVs[1] = 1.0f;
+		if (animatedSprite.FrameHandler > 0.1)
+		{
+			currentFrame = Frame9;
+			animatedSprite.FrameHandler = 0;
+
+		}
+		break;
+
+	case Frame9:
+		animatedSprite.text[0].fUVs[0] = 0.83f; //topright of the triangle
+		animatedSprite.text[0].fUVs[1] = 1.0f;
+
+		animatedSprite.text[2].fUVs[0] = 0.83f; //bottom right
+		animatedSprite.text[2].fUVs[1] = 0.00f;
+
+		animatedSprite.text[3].fUVs[0] = 0.83f; //upper right
+		animatedSprite.text[3].fUVs[1] = 1.0f;
+
+		animatedSprite.text[1].fUVs[0] = 0.75f; //bottom left
+		animatedSprite.text[1].fUVs[1] = 0.0f;
+
+		animatedSprite.text[4].fUVs[0] = 0.75f; // bottom left corner
+		animatedSprite.text[4].fUVs[1] = 0.0f;
+
+		animatedSprite.text[5].fUVs[0] = 0.75f; // upper left corner
+		animatedSprite.text[5].fUVs[1] = 1.0f;
+
+		if (animatedSprite.FrameHandler > 0.1)
+		{
+			currentFrame = Frame10;
+			animatedSprite.FrameHandler = 0;
+
+		}
+		break;
+
+	case Frame10:
+		animatedSprite.text[0].fUVs[0] = 0.92f; //topright of the triangle
+		animatedSprite.text[0].fUVs[1] = 1.0f;
+
+		animatedSprite.text[2].fUVs[0] = 0.92f; //bottom right
+		animatedSprite.text[2].fUVs[1] = 0.00f;
+
+		animatedSprite.text[3].fUVs[0] = 0.92f; //upper right
+		animatedSprite.text[3].fUVs[1] = 1.0f;
+
+		animatedSprite.text[1].fUVs[0] = 0.84f; //bottom left
+		animatedSprite.text[1].fUVs[1] = 0.0f;
+
+		animatedSprite.text[4].fUVs[0] = 0.84f; // bottom left corner
+		animatedSprite.text[4].fUVs[1] = 0.0f;
+
+		animatedSprite.text[5].fUVs[0] = 0.84f; // upper left corner
+		animatedSprite.text[5].fUVs[1] = 1.0f;
+		if (animatedSprite.FrameHandler > 0.1)
+		{
+			currentFrame = Frame11;
+			animatedSprite.FrameHandler = 0;
+
+		}
+		break;
+
+	case Frame11:
+		animatedSprite.text[0].fUVs[0] = 1.0f; //topright of the triangle
+		animatedSprite.text[0].fUVs[1] = 1.0f;
+
+		animatedSprite.text[2].fUVs[0] = 1.0f; //bottom right
+		animatedSprite.text[2].fUVs[1] = 0.00f;
+
+		animatedSprite.text[3].fUVs[0] = 1.0f; //upper right
+		animatedSprite.text[3].fUVs[1] = 1.0f;
+
+		animatedSprite.text[1].fUVs[0] = 0.92f; //bottom left
+		animatedSprite.text[1].fUVs[1] = 0.0f;
+
+		animatedSprite.text[4].fUVs[0] = 0.92f; // bottom left corner
+		animatedSprite.text[4].fUVs[1] = 0.0f;
+
+		animatedSprite.text[5].fUVs[0] = 0.92f; // upper left corner
+		animatedSprite.text[5].fUVs[1] = 1.0f;
+		if (animatedSprite.FrameHandler > 0.1)
+		{
+			currentFrame = Frame0;
+			animatedSprite.FrameHandler = 0;
+
+		}
+		break;*/
 	
 	
 	

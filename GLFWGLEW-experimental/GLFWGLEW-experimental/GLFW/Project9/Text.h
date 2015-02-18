@@ -17,6 +17,8 @@ struct FontLetter
 	float endY;
 	float width;
 	float height;
+	float xOffset;
+	float yOffset;
 };
 
 class Text
@@ -25,8 +27,9 @@ public:
 
 	void Draw(float xPos, float yPos, char theLetter);
 	void Draw(float xPos, float yPos, std::string sentence);
-	float xPos;
-	float yPos;
+	void DrawNoOffSets(float xPos, float yPos, std::string sentence);
+	float xPosi;
+	float yPosi;
 	Vertex* text;
 	GLuint uiVBOText;
 	GLuint uiIBOText;
