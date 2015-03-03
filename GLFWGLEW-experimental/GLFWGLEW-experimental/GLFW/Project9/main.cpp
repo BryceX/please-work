@@ -84,7 +84,7 @@ int main()
 	{
 		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-		//GetDeltaTime();
+		GetDeltaTime();
 	
 
 		currentTime = glfwGetTime();
@@ -97,7 +97,7 @@ int main()
 		myShip.Draw();
 		
 
-		bbyPlz.Draw(250.f, 300.f, std::string("NepNep"));
+		bbyPlz.Draw(250.f, 300.f, std::string("Ayy lmao"));
 		
 		
 	//	animatedSprite.Draw();
